@@ -1,22 +1,51 @@
+'use client'
+ 
 import Link from "next/link";
-import { ArrowRight, BarChart3, Package, ShieldCheck, Zap, TrendingUp, Clock, Star, CheckCircle } from "lucide-react";
+import { ArrowRight, BarChart3, Package, ShieldCheck, TrendingUp, Clock, Star, CheckCircle } from "lucide-react";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white text-[#484848] selection:bg-[#008489]/20">
+    <div className="min-h-screen bg-white text-[#484848] selection:bg-[#008489]/20 scroll-smooth">
       {/* --- NAVIGATION --- */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100">
         <div className="flex items-center justify-between px-8 py-4 max-w-7xl mx-auto">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="bg-[#008489] p-2 rounded-xl group-hover:scale-110 transition-transform">
-              <Zap size={20} className="text-white fill-current" />
+            <div className="relative w-10 h-10 group-hover:scale-110 transition-transform">
+              <img src="/logo.png" alt="HostFlow" className="w-full h-full object-contain" />
             </div>
             <span className="text-2xl font-black tracking-tighter text-[#008489]">HostFlow</span>
           </Link>
           <div className="hidden md:flex items-center gap-8 text-[11px] font-black uppercase tracking-widest text-gray-400">
-            <a href="#features" className="hover:text-[#008489] transition-colors">Features</a>
-            <a href="#how-it-works" className="hover:text-[#008489] transition-colors">How It Works</a>
-            <a href="#pricing" className="hover:text-[#008489] transition-colors">Pricing</a>
+            <a 
+              href="#features" 
+              className="hover:text-[#008489] transition-colors cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#features')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              Features
+            </a>
+            <a 
+              href="#how-it-works" 
+              className="hover:text-[#008489] transition-colors cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              How It Works
+            </a>
+            <a 
+              href="#pricing" 
+              className="hover:text-[#008489] transition-colors cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#pricing')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
+              Pricing
+            </a>
             <Link href="/auth/login" className="bg-[#008489] text-white px-6 py-3 rounded-full hover:bg-[#006d73] transition-all shadow-lg shadow-[#008489]/20 hover:shadow-xl hover:shadow-[#008489]/30">
               Sign In
             </Link>
@@ -60,7 +89,14 @@ export default function HomePage() {
               Start Free Trial
               <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
             </Link>
-            <a href="#how-it-works" className="px-10 py-5 rounded-[2rem] text-lg font-black text-[#484848] hover:bg-gray-50 transition-all border-2 border-transparent hover:border-gray-200">
+            <a 
+              href="#how-it-works" 
+              className="px-10 py-5 rounded-[2rem] text-lg font-black text-[#484848] hover:bg-gray-50 transition-all border-2 border-transparent hover:border-gray-200 cursor-pointer"
+              onClick={(e) => {
+                e.preventDefault();
+                document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
               See How It Works
             </a>
           </div>
@@ -381,8 +417,8 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2">
-              <div className="bg-[#008489] p-2 rounded-xl">
-                <Zap size={16} className="text-white fill-current" />
+              <div className="relative w-8 h-8">
+                <img src="/logo.png" alt="HostFlow" className="w-full h-full object-contain" />
               </div>
               <span className="text-xl font-black tracking-tighter text-[#008489]">HostFlow</span>
             </div>

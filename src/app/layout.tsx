@@ -44,9 +44,9 @@ export const metadata: Metadata = {
     siteName: "HostFlow",
     images: [
       {
-        url: "/og-image.png", // Create this image: 1200x630px
+        url: "/logo.png",
         width: 1200,
-        height: 630,
+        height: 1200,
         alt: "HostFlow - Smart Inventory Management for AirBnB Hosts"
       }
     ]
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "HostFlow - Inventory & Analytics for AirBnB Hosts",
     description: "Manage your stays. Master your margins.",
-    images: ["/og-image.png"],
+    images: ["/logo.png"],
     creator: "@hostflow" // Update with your actual Twitter handle
   },
   robots: {
@@ -71,16 +71,14 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.ico" },
-      { url: "/icon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/icon-32x32.png", sizes: "32x32", type: "image/png" }
+      { url: "/logo.png" },
+      { url: "/logo.png", sizes: "16x16", type: "image/png" },
+      { url: "/logo.png", sizes: "32x32", type: "image/png" }
     ],
     apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }
+      { url: "/logo.png", sizes: "180x180", type: "image/png" }
     ],
-    other: [
-      { rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#008489" }
-    ]
+    shortcut: "/logo.png"
   },
   manifest: "/site.webmanifest",
   themeColor: "#008489",

@@ -1,7 +1,7 @@
 import { login } from '../../actions'
 import SocialAuth from '../../../../components/auth/social-auth'
 import Link from 'next/link'
-import { Zap, ArrowLeft } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 
 export default function LoginPage() {
   return (
@@ -14,8 +14,8 @@ export default function LoginPage() {
         
         <div className="relative z-10">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="bg-white p-3 rounded-xl group-hover:scale-110 transition-transform">
-              <Zap size={24} className="text-[#008489] fill-current" />
+            <div className="relative w-12 h-12 group-hover:scale-110 transition-transform">
+              <img src="/logo.png" alt="HostFlow" className="w-full h-full object-contain" />
             </div>
             <span className="text-3xl font-black tracking-tighter text-white">HostFlow</span>
           </Link>
@@ -73,8 +73,8 @@ export default function LoginPage() {
           <div className="bg-white rounded-[2rem] p-8 md:p-10 shadow-xl border border-gray-100">
             {/* Logo for Mobile */}
             <div className="lg:hidden flex items-center justify-center gap-2 mb-8">
-              <div className="bg-[#008489] p-2 rounded-xl">
-                <Zap size={20} className="text-white fill-current" />
+              <div className="relative w-8 h-8">
+                <img src="/logo.png" alt="HostFlow" className="w-full h-full object-contain" />
               </div>
               <span className="text-2xl font-black tracking-tighter text-[#008489]">HostFlow</span>
             </div>
