@@ -6,12 +6,16 @@ import { useState } from 'react'
 export default function RestockButton({ itemId, propertyId }: { itemId: string, propertyId: string }) {
   const [loading, setLoading] = useState(false)
 
-  const handleRestock = async () => {
-    setLoading(true)
-    // Adding 50 items (a full box)
-    await adjustStock(itemId, 50, propertyId)
-    setLoading(false)
+const handleRestock = async () => {
+  setLoading(true);
+  try {
+    await adjustStock(itemId, propertyId, 50, 'RESTOCK');
+  } catch (error) {
+    console.error(error);
+  } finally {
+    setLoading(false);
   }
+};
 
   return (
     <button 
