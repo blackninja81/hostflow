@@ -155,7 +155,7 @@ export async function adjustStock(
   propertyId: string, 
   amount: number, 
   type: 'DISPATCH' | 'RESTOCK',
-  customPrice?: number // New optional argument
+  customPrice?: number 
 ) {
   const supabase = await createClient();
 
