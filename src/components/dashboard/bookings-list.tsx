@@ -74,7 +74,7 @@ function BookingRow({ booking, propertyId }: { booking: any, propertyId: string 
   const BadgeIcon = currentStyle.badgeIcon;
 
   return (
-    <div className={`relative group transition-all duration-300 rounded-[2rem] p-5 mb-3 border-2 ${
+    <div className={`relative group transition-all duration-300 rounded-[2rem] p-5 border-2 ${
       currentStyle.container
     } ${isDeleting ? 'scale-95 opacity-20' : ''}`}>
       
@@ -228,9 +228,9 @@ export default function BookingsList({ bookings = [], propertyId }: { bookings: 
   }, { current: 0, future: 0, past: 0 });
 
   return (
-    <div className="space-y-1">
-      {/* Header with stats */}
-      <div className="px-6 mb-4 flex justify-between items-center">
+    <div className="bg-white rounded-[2rem] border border-gray-100 shadow-sm overflow-hidden flex flex-col h-[600px]">
+      {/* Header with stats - Sticky */}
+      <div className="px-6 py-4 border-b border-gray-100 flex justify-between items-center sticky top-0 bg-white z-10">
         <div className="flex items-center gap-4">
           <span className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">
             Guest History
@@ -252,21 +252,31 @@ export default function BookingsList({ bookings = [], propertyId }: { bookings: 
         </span>
       </div>
 
-      {sortedBookings.length === 0 ? (
-        <div className="bg-white rounded-[2.5rem] p-16 text-center border-2 border-dashed border-gray-100">
-          <Calendar size={48} className="mx-auto mb-4 text-gray-300" />
-          <p className="text-sm font-bold text-gray-300 uppercase tracking-widest">
-            No Bookings Yet
-          </p>
-          <p className="text-xs text-gray-400 mt-2">
-            Add your first booking to start tracking revenue
-          </p>
-        </div>
-      ) : (
-        sortedBookings.map((b) => (
-          <BookingRow key={b.id} booking={b} propertyId={propertyId} />
-        ))
-      )}
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-thin scrollbar-thumb-gray-200 scrollbar-track-transparent p-4">
+        {sortedBookings.length === 0 ? (
+          <div className="flex items-center justify-center h-full">
+            <div className="text-center">
+              <Calendar size={48} className="mx-auto mb-4 text-gray-300" />
+              <p className="text-sm font-bold text-gray-300 uppercase tracking-widest">
+                No Bookings Yet
+              </p>
+              <p className="text-xs text-gray-400 mt-2">
+                Add your first booking to start tracking revenue
+              </p>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            {sortedBookings.map((b) => (
+              <BookingRow key={b.id} booking={b} propertyId={propertyId} />
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Subtle Bottom Fade */}
+      <div className="h-4 bg-gradient-to-t from-gray-50/50 to-transparent sticky bottom-0 pointer-events-none" />
     </div>
   )
 }
