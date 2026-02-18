@@ -89,14 +89,14 @@ export default function LoginPage() {
             </div>
 
             {/* Login Form */}
-            <form action={login} className="space-y-4">
+            {/* <form action={login} className="space-y-4">
               <button 
                 type="submit"
                 className="w-full bg-gradient-to-r from-[#008489] to-[#00a699] text-white py-4 rounded-2xl font-black text-lg uppercase tracking-wider hover:scale-[1.02] transition-all shadow-lg shadow-[#008489]/20 hover:shadow-xl hover:shadow-[#008489]/30"
               >
                 Continue with Email
               </button>
-            </form>
+            </form> */}
 
             {/* Social Auth */}
             <SocialAuth />

@@ -15,6 +15,7 @@ import InventoryHistory from "../../../../components/dashboard/inventory-history
 import BookingsList from "../../../../components/dashboard/bookings-list";
 import LowStockModal from "../../../../components/dashboard/low-stock-modal";
 import ItemSettings from "../../../../components/dashboard/item-settings";
+import FinancialReportButton from "@/src/components/dashboard/FinancialReportButton";
 
 const formatKSh = (amount: number) => {
   return new Intl.NumberFormat('en-KE', {
@@ -99,9 +100,16 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
                 onChange={(e) => setSelectedYear(e.target.value)} 
                 className="bg-transparent text-[11px] font-black uppercase outline-none cursor-pointer"
               >
+                <option value="2030">2030</option>
+                <option value="2029">2029</option>
+                <option value="2028">2028</option>
+                <option value="2027">2027</option>
                 <option value="2026">2026</option>
                 <option value="2025">2025</option>
                 <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
               </select>
               <div className="w-[1px] h-4 bg-gray-200 mx-1" />
               <select 
@@ -348,6 +356,13 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
                 Activity Log
               </h2>
               <InventoryHistory logs={filteredData.filteredLogs} />
+              <FinancialReportButton
+  property={property}
+  inventory={inventory}
+  logs={logs}
+  bookings={bookings}
+  selectedYear={selectedYear}
+/>
             </section>
           </div>
         </div>

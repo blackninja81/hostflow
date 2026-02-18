@@ -10,7 +10,7 @@ export default async function DashboardPage() {
 
   if (!user) redirect("/auth/login");
 
-  // 1. Fetch properties (Basic query - this should definitely work)
+  // 1. Fetch properties
   const { data: properties, error: propError } = await supabase
     .from("properties")
     .select("*")
