@@ -1,13 +1,14 @@
 'use client'
  
 import Link from "next/link";
+import ThemeToggle from "../components/ThemeToggle";
 import { ArrowRight, BarChart3, Package, ShieldCheck, TrendingUp, Clock, Star, CheckCircle } from "lucide-react";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white text-[#484848] selection:bg-[#008489]/20 scroll-smooth">
+    <div className="min-h-screen bg-white dark:bg-[#0F172A] text-[#484848] dark:text-slate-200 selection:bg-[#008489]/20 scroll-smooth transition-colors duration-500">
       {/* --- NAVIGATION --- */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-[#0F172A]/80 backdrop-blur-xl border-b border-gray-100 dark:border-slate-800 transition-colors duration-500">
         <div className="flex items-center justify-between px-8 py-4 max-w-7xl mx-auto">
           <Link href="/" className="flex items-center gap-2 group">
             <div className="relative w-10 h-10 group-hover:scale-110 transition-transform">
@@ -15,47 +16,58 @@ export default function HomePage() {
             </div>
             <span className="text-2xl font-black tracking-tighter text-[#008489]">HostFlow</span>
           </Link>
-          <div className="hidden md:flex items-center gap-8 text-[11px] font-black uppercase tracking-widest text-gray-400">
-            <a 
-              href="#features" 
-              className="hover:text-[#008489] transition-colors cursor-pointer"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#features')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Features
-            </a>
-            <a 
-              href="#how-it-works" 
-              className="hover:text-[#008489] transition-colors cursor-pointer"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              How It Works
-            </a>
-            <a 
-              href="#pricing" 
-              className="hover:text-[#008489] transition-colors cursor-pointer"
-              onClick={(e) => {
-                e.preventDefault();
-                document.querySelector('#pricing')?.scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Pricing
-            </a>
-            <Link href="/auth/login" className="bg-[#008489] text-white px-6 py-3 rounded-full hover:bg-[#006d73] transition-all shadow-lg shadow-[#008489]/20 hover:shadow-xl hover:shadow-[#008489]/30">
-              Sign In
-            </Link>
+
+          <div className="flex items-center gap-4 md:gap-8">
+            {/* Desktop Menu */}
+            <div className="hidden md:flex items-center gap-8 text-[11px] font-black uppercase tracking-widest text-gray-400 dark:text-slate-500">
+              <a 
+                href="#features" 
+                className="hover:text-[#008489] dark:hover:text-[#008489] transition-colors cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector('#features')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Features
+              </a>
+              <a 
+                href="#how-it-works" 
+                className="hover:text-[#008489] dark:hover:text-[#008489] transition-colors cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                How It Works
+              </a>
+              <a 
+                href="#pricing" 
+                className="hover:text-[#008489] dark:hover:text-[#008489] transition-colors cursor-pointer"
+                onClick={(e) => {
+                  e.preventDefault();
+                  document.querySelector('#pricing')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
+                Pricing
+              </a>
+            </div>
+
+            {/* Actions: Theme Toggle + Sign In */}
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+              
+              <Link href="/auth/login" className="hidden sm:block bg-[#008489] text-white px-6 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-[#006d73] transition-all shadow-lg shadow-[#008489]/20 hover:shadow-xl hover:shadow-[#008489]/30">
+                Sign In
+              </Link>
+
+              {/* Mobile Menu Button */}
+              <button className="md:hidden p-2 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-lg transition-colors">
+                <svg className="w-6 h-6 text-[#484848] dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              </button>
+            </div>
           </div>
-          {/* Mobile Menu Button */}
-          <button className="md:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors">
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
         </div>
       </nav>
 
@@ -63,7 +75,7 @@ export default function HomePage() {
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 px-8 overflow-hidden">
         <div className="max-w-7xl mx-auto text-center relative z-10">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-50 to-green-50 text-[#008489] px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-8 border border-teal-100 shadow-sm">
+          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-50 to-green-50 dark:from-teal-950/30 dark:to-green-950/30 text-[#008489] px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-8 border border-teal-100 dark:border-[#008489]/30 shadow-sm">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#008489] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#008489]"></span>
@@ -72,13 +84,13 @@ export default function HomePage() {
           </div>
           
           {/* Main Headline */}
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#484848] tracking-tighter mb-6 leading-[0.95]">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#484848] dark:text-white tracking-tighter mb-6 leading-[0.95]">
             Manage your stays. <br />
             <span className="bg-gradient-to-r from-[#008489] to-[#00a699] bg-clip-text text-transparent">Master your margins.</span>
           </h1>
           
           {/* Subheadline */}
-          <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-500 font-medium leading-relaxed mb-12">
+          <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-500 dark:text-slate-400 font-medium leading-relaxed mb-12">
             The only inventory & analytics platform built specifically for AirBnB hosts. 
             Track supplies, monitor profits, and scale your portfolio with confidence.
           </p>
@@ -91,7 +103,7 @@ export default function HomePage() {
             </Link>
             <a 
               href="#how-it-works" 
-              className="px-10 py-5 rounded-[2rem] text-lg font-black text-[#484848] hover:bg-gray-50 transition-all border-2 border-transparent hover:border-gray-200 cursor-pointer"
+              className="px-10 py-5 rounded-[2rem] text-lg font-black text-[#484848] dark:text-white hover:bg-gray-50 dark:hover:bg-slate-800 transition-all border-2 border-transparent hover:border-gray-200 dark:hover:border-slate-700 cursor-pointer"
               onClick={(e) => {
                 e.preventDefault();
                 document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' });
@@ -102,7 +114,7 @@ export default function HomePage() {
           </div>
 
           {/* Social Proof */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-gray-400">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-gray-400 dark:text-slate-500">
             <div className="flex items-center gap-2">
               <CheckCircle size={16} className="text-green-500" />
               <span className="font-semibold">No credit card required</span>
@@ -119,23 +131,23 @@ export default function HomePage() {
         </div>
 
         {/* --- DECORATIVE ELEMENTS --- */}
-        <div className="absolute top-0 -left-20 w-96 h-96 bg-gradient-to-br from-teal-100 to-green-100 opacity-50 rounded-full blur-[120px] -z-10" />
-        <div className="absolute bottom-0 -right-20 w-96 h-96 bg-gradient-to-br from-[#FF5A5F]/10 to-orange-100/50 rounded-full blur-[120px] -z-10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-blue-50 to-purple-50 opacity-30 rounded-full blur-[150px] -z-10" />
+        <div className="absolute top-0 -left-20 w-96 h-96 bg-gradient-to-br from-teal-100 to-green-100 dark:from-[#008489]/20 dark:to-green-900/10 opacity-50 rounded-full blur-[120px] -z-10" />
+        <div className="absolute bottom-0 -right-20 w-96 h-96 bg-gradient-to-br from-[#FF5A5F]/10 to-orange-100/50 dark:from-[#FF5A5F]/5 dark:to-orange-900/10 rounded-full blur-[120px] -z-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/10 dark:to-purple-900/10 opacity-30 rounded-full blur-[150px] -z-10" />
       </section>
 
       {/* --- FEATURE GRID --- */}
-      <section id="features" className="py-24 bg-gradient-to-br from-[#F7F7F7] to-gray-50 rounded-[4rem] mx-4 border border-gray-100 shadow-inner">
+      <section id="features" className="py-24 bg-gradient-to-br from-[#F7F7F7] to-gray-50 dark:from-slate-900 dark:to-slate-900/50 rounded-[4rem] mx-4 border border-gray-100 dark:border-slate-800 shadow-inner transition-colors">
         <div className="max-w-7xl mx-auto px-8">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-[#008489] bg-teal-50 px-4 py-2 rounded-full mb-4 border border-teal-100">
+            <div className="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-[#008489] bg-teal-50 dark:bg-teal-950/30 px-4 py-2 rounded-full mb-4 border border-teal-100 dark:border-[#008489]/20">
               Features
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-[#484848] tracking-tighter mb-4">
+            <h2 className="text-4xl md:text-5xl font-black text-[#484848] dark:text-white tracking-tighter mb-4">
               Everything you need to run <br className="hidden md:block" />a profitable operation
             </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">
+            <p className="text-gray-500 dark:text-slate-400 max-w-2xl mx-auto">
               Professional-grade tools designed specifically for short-term rental hosts
             </p>
           </div>
@@ -143,15 +155,15 @@ export default function HomePage() {
           {/* Feature Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Feature 1 */}
-            <div className="group bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#008489]/20">
-              <div className="w-14 h-14 bg-gradient-to-br from-teal-50 to-green-50 rounded-2xl flex items-center justify-center shadow-sm border border-teal-100 mb-6 group-hover:scale-110 transition-transform">
+            <div className="group bg-white dark:bg-slate-800/50 p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-800 hover:border-[#008489]/20">
+              <div className="w-14 h-14 bg-gradient-to-br from-teal-50 to-green-50 dark:from-teal-900/20 dark:to-green-900/20 rounded-2xl flex items-center justify-center shadow-sm border border-teal-100 dark:border-teal-800 mb-6 group-hover:scale-110 transition-transform">
                 <Package className="text-[#008489]" size={28} />
               </div>
-              <h3 className="text-xl font-black text-[#484848] uppercase tracking-tight mb-3">Smart Inventory</h3>
-              <p className="text-gray-500 text-sm leading-relaxed mb-4">
+              <h3 className="text-xl font-black text-[#484848] dark:text-white uppercase tracking-tight mb-3">Smart Inventory</h3>
+              <p className="text-gray-500 dark:text-slate-400 text-sm leading-relaxed mb-4">
                 Automated low-stock alerts for toiletries, linens, and essentials. Never disappoint guests with missing amenities.
               </p>
-              <ul className="space-y-2 text-xs text-gray-400">
+              <ul className="space-y-2 text-xs text-gray-400 dark:text-slate-500">
                 <li className="flex items-center gap-2">
                   <CheckCircle size={14} className="text-[#008489]" />
                   Real-time stock tracking
@@ -168,15 +180,15 @@ export default function HomePage() {
             </div>
 
             {/* Feature 2 */}
-            <div className="group bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-[#FF5A5F]/20">
-              <div className="w-14 h-14 bg-gradient-to-br from-red-50 to-orange-50 rounded-2xl flex items-center justify-center shadow-sm border border-red-100 mb-6 group-hover:scale-110 transition-transform">
+            <div className="group bg-white dark:bg-slate-800/50 p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-800 hover:border-[#FF5A5F]/20">
+              <div className="w-14 h-14 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 rounded-2xl flex items-center justify-center shadow-sm border border-red-100 dark:border-red-800 mb-6 group-hover:scale-110 transition-transform">
                 <BarChart3 className="text-[#FF5A5F]" size={28} />
               </div>
-              <h3 className="text-xl font-black text-[#484848] uppercase tracking-tight mb-3">Profit Analytics</h3>
-              <p className="text-gray-500 text-sm leading-relaxed mb-4">
+              <h3 className="text-xl font-black text-[#484848] dark:text-white uppercase tracking-tight mb-3">Profit Analytics</h3>
+              <p className="text-gray-500 dark:text-slate-400 text-sm leading-relaxed mb-4">
                 True profit visibility after accounting for all expenses: payouts, cleaning, utilities, and supplies.
               </p>
-              <ul className="space-y-2 text-xs text-gray-400">
+              <ul className="space-y-2 text-xs text-gray-400 dark:text-slate-500">
                 <li className="flex items-center gap-2">
                   <CheckCircle size={14} className="text-[#FF5A5F]" />
                   Real-time P&L tracking
@@ -193,15 +205,15 @@ export default function HomePage() {
             </div>
 
             {/* Feature 3 */}
-            <div className="group bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-teal-600/20">
-              <div className="w-14 h-14 bg-gradient-to-br from-teal-50 to-cyan-50 rounded-2xl flex items-center justify-center shadow-sm border border-teal-100 mb-6 group-hover:scale-110 transition-transform">
+            <div className="group bg-white dark:bg-slate-800/50 p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-800 hover:border-teal-600/20">
+              <div className="w-14 h-14 bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 rounded-2xl flex items-center justify-center shadow-sm border border-teal-100 dark:border-teal-800 mb-6 group-hover:scale-110 transition-transform">
                 <ShieldCheck className="text-teal-600" size={28} />
               </div>
-              <h3 className="text-xl font-black text-[#484848] uppercase tracking-tight mb-3">Multi-Property</h3>
-              <p className="text-gray-500 text-sm leading-relaxed mb-4">
+              <h3 className="text-xl font-black text-[#484848] dark:text-white uppercase tracking-tight mb-3">Multi-Property</h3>
+              <p className="text-gray-500 dark:text-slate-400 text-sm leading-relaxed mb-4">
                 Scale from one studio to fifty villas. Unified dashboard with zero friction switching between properties.
               </p>
-              <ul className="space-y-2 text-xs text-gray-400">
+              <ul className="space-y-2 text-xs text-gray-400 dark:text-slate-500">
                 <li className="flex items-center gap-2">
                   <CheckCircle size={14} className="text-teal-600" />
                   Unlimited properties
@@ -225,10 +237,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-[#008489] bg-teal-50 px-4 py-2 rounded-full mb-4 border border-teal-100">
+            <div className="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-[#008489] bg-teal-50 dark:bg-teal-950/30 px-4 py-2 rounded-full mb-4 border border-teal-100 dark:border-[#008489]/20">
               How It Works
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-[#484848] tracking-tighter mb-4">
+            <h2 className="text-4xl md:text-5xl font-black text-[#484848] dark:text-white tracking-tighter mb-4">
               From setup to insights <br className="hidden md:block" />in three simple steps
             </h2>
           </div>
@@ -237,15 +249,15 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Step 1 */}
             <div className="relative">
-              <div className="absolute -top-4 -left-4 w-12 h-12 bg-[#008489] text-white rounded-full flex items-center justify-center font-black text-xl">
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-[#008489] text-white rounded-full flex items-center justify-center font-black text-xl z-20">
                 1
               </div>
-              <div className="bg-white p-8 rounded-[2rem] border-2 border-gray-100 h-full pt-12">
-                <div className="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center mb-4">
+              <div className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border-2 border-gray-100 dark:border-slate-800 h-full pt-12 transition-colors">
+                <div className="w-12 h-12 bg-teal-50 dark:bg-teal-900/20 rounded-xl flex items-center justify-center mb-4">
                   <Package className="text-[#008489]" size={24} />
                 </div>
-                <h3 className="text-lg font-black text-[#484848] uppercase tracking-tight mb-2">Add Your Properties</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
+                <h3 className="text-lg font-black text-[#484848] dark:text-white uppercase tracking-tight mb-2">Add Your Properties</h3>
+                <p className="text-gray-500 dark:text-slate-400 text-sm leading-relaxed">
                   Add your listings and stock them with supplies. Set custom thresholds for each item.
                 </p>
               </div>
@@ -253,15 +265,15 @@ export default function HomePage() {
 
             {/* Step 2 */}
             <div className="relative">
-              <div className="absolute -top-4 -left-4 w-12 h-12 bg-[#008489] text-white rounded-full flex items-center justify-center font-black text-xl">
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-[#008489] text-white rounded-full flex items-center justify-center font-black text-xl z-20">
                 2
               </div>
-              <div className="bg-white p-8 rounded-[2rem] border-2 border-gray-100 h-full pt-12">
-                <div className="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center mb-4">
+              <div className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border-2 border-gray-100 dark:border-slate-800 h-full pt-12 transition-colors">
+                <div className="w-12 h-12 bg-red-50 dark:bg-red-900/20 rounded-xl flex items-center justify-center mb-4">
                   <TrendingUp className="text-[#FF5A5F]" size={24} />
                 </div>
-                <h3 className="text-lg font-black text-[#484848] uppercase tracking-tight mb-2">Track Bookings</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
+                <h3 className="text-lg font-black text-[#484848] dark:text-white uppercase tracking-tight mb-2">Track Bookings</h3>
+                <p className="text-gray-500 dark:text-slate-400 text-sm leading-relaxed">
                   Log guest stays and payouts. HostFlow automatically calculates your true profit margins.
                 </p>
               </div>
@@ -269,15 +281,15 @@ export default function HomePage() {
 
             {/* Step 3 */}
             <div className="relative">
-              <div className="absolute -top-4 -left-4 w-12 h-12 bg-[#008489] text-white rounded-full flex items-center justify-center font-black text-xl">
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-[#008489] text-white rounded-full flex items-center justify-center font-black text-xl z-20">
                 3
               </div>
-              <div className="bg-white p-8 rounded-[2rem] border-2 border-gray-100 h-full pt-12">
-                <div className="w-12 h-12 bg-teal-50 rounded-xl flex items-center justify-center mb-4">
+              <div className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border-2 border-gray-100 dark:border-slate-800 h-full pt-12 transition-colors">
+                <div className="w-12 h-12 bg-teal-50 dark:bg-teal-900/20 rounded-xl flex items-center justify-center mb-4">
                   <Clock className="text-teal-600" size={24} />
                 </div>
-                <h3 className="text-lg font-black text-[#484848] uppercase tracking-tight mb-2">Get Insights</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
+                <h3 className="text-lg font-black text-[#484848] dark:text-white uppercase tracking-tight mb-2">Get Insights</h3>
+                <p className="text-gray-500 dark:text-slate-400 text-sm leading-relaxed">
                   Receive real-time alerts, view analytics, and make data-driven decisions to grow your business.
                 </p>
               </div>
@@ -287,17 +299,17 @@ export default function HomePage() {
       </section>
 
       {/* --- PRICING SECTION --- */}
-      <section id="pricing" className="py-24 px-8 bg-gradient-to-br from-[#F7F7F7] to-gray-50">
+      <section id="pricing" className="py-24 px-8 bg-gradient-to-br from-[#F7F7F7] to-gray-50 dark:from-slate-950 dark:to-[#0F172A] transition-colors">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-[#008489] bg-teal-50 px-4 py-2 rounded-full mb-4 border border-teal-100">
+            <div className="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-[#008489] bg-teal-50 dark:bg-teal-950/30 px-4 py-2 rounded-full mb-4 border border-teal-100 dark:border-[#008489]/20">
               Simple Pricing
             </div>
-            <h2 className="text-4xl md:text-5xl font-black text-[#484848] tracking-tighter mb-4">
+            <h2 className="text-4xl md:text-5xl font-black text-[#484848] dark:text-white tracking-tighter mb-4">
               Start free, scale as you grow
             </h2>
-            <p className="text-gray-500 max-w-2xl mx-auto">
+            <p className="text-gray-500 dark:text-slate-400 max-w-2xl mx-auto">
               14-day free trial. No credit card required. Cancel anytime.
             </p>
           </div>
@@ -305,31 +317,31 @@ export default function HomePage() {
           {/* Pricing Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Starter */}
-            <div className="bg-white p-8 rounded-[2rem] border-2 border-gray-100 hover:border-gray-200 transition-all">
+            <div className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border-2 border-gray-100 dark:border-slate-800 hover:border-gray-200 dark:hover:border-slate-700 transition-all">
               <div className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Starter</div>
-              <div className="text-4xl font-black text-[#484848] mb-2">Free</div>
-              <p className="text-sm text-gray-500 mb-6">Perfect for getting started</p>
+              <div className="text-4xl font-black text-[#484848] dark:text-white mb-2">Free</div>
+              <p className="text-sm text-gray-500 dark:text-slate-400 mb-6">Perfect for getting started</p>
               <ul className="space-y-3 mb-8">
-                <li className="flex items-center gap-2 text-sm text-gray-600">
+                <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300">
                   <CheckCircle size={16} className="text-[#008489]" />
                   1 property
                 </li>
-                <li className="flex items-center gap-2 text-sm text-gray-600">
+                <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300">
                   <CheckCircle size={16} className="text-[#008489]" />
                   Basic inventory tracking
                 </li>
-                <li className="flex items-center gap-2 text-sm text-gray-600">
+                <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300">
                   <CheckCircle size={16} className="text-[#008489]" />
                   Booking management
                 </li>
               </ul>
-              <Link href="/auth/login" className="block w-full bg-gray-100 text-[#484848] text-center px-6 py-3 rounded-full font-black hover:bg-gray-200 transition-all">
+              <Link href="/auth/login" className="block w-full bg-gray-100 dark:bg-slate-800 text-[#484848] dark:text-white text-center px-6 py-3 rounded-full font-black hover:bg-gray-200 dark:hover:bg-slate-700 transition-all">
                 Get Started
               </Link>
             </div>
 
             {/* Pro */}
-            <div className="bg-gradient-to-br from-[#008489] to-[#006d73] p-8 rounded-[2rem] border-2 border-[#008489] shadow-2xl shadow-[#008489]/30 scale-105 relative">
+            <div className="bg-gradient-to-br from-[#008489] to-[#006d73] p-8 rounded-[2rem] border-2 border-[#008489] shadow-2xl shadow-[#008489]/30 scale-105 relative z-10">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#FF5A5F] text-white text-[8px] font-black uppercase tracking-widest px-4 py-1 rounded-full">
                 Most Popular
               </div>
@@ -360,29 +372,29 @@ export default function HomePage() {
             </div>
 
             {/* Enterprise */}
-            <div className="bg-white p-8 rounded-[2rem] border-2 border-gray-100 hover:border-gray-200 transition-all">
+            <div className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border-2 border-gray-100 dark:border-slate-800 hover:border-gray-200 dark:hover:border-slate-700 transition-all">
               <div className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Enterprise</div>
-              <div className="text-4xl font-black text-[#484848] mb-2">Custom</div>
-              <p className="text-sm text-gray-500 mb-6">For property managers</p>
+              <div className="text-4xl font-black text-[#484848] dark:text-white mb-2">Custom</div>
+              <p className="text-sm text-gray-500 dark:text-slate-400 mb-6">For property managers</p>
               <ul className="space-y-3 mb-8">
-                <li className="flex items-center gap-2 text-sm text-gray-600">
+                <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300">
                   <CheckCircle size={16} className="text-[#008489]" />
                   Unlimited properties
                 </li>
-                <li className="flex items-center gap-2 text-sm text-gray-600">
+                <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300">
                   <CheckCircle size={16} className="text-[#008489]" />
                   Custom integrations
                 </li>
-                <li className="flex items-center gap-2 text-sm text-gray-600">
+                <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300">
                   <CheckCircle size={16} className="text-[#008489]" />
                   White-label option
                 </li>
-                <li className="flex items-center gap-2 text-sm text-gray-600">
+                <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300">
                   <CheckCircle size={16} className="text-[#008489]" />
                   Dedicated support
                 </li>
               </ul>
-              <a href="mailto:sales@hostflow.com" className="block w-full bg-[#484848] text-white text-center px-6 py-3 rounded-full font-black hover:bg-black transition-all">
+              <a href="mailto:sales@hostflow.com" className="block w-full bg-[#484848] dark:bg-slate-800 text-white text-center px-6 py-3 rounded-full font-black hover:bg-black dark:hover:bg-slate-700 transition-all">
                 Contact Sales
               </a>
             </div>
@@ -413,7 +425,7 @@ export default function HomePage() {
       </section>
 
       {/* --- FOOTER --- */}
-      <footer className="py-12 border-t border-gray-100">
+      <footer className="py-12 border-t border-gray-100 dark:border-slate-800 transition-colors">
         <div className="max-w-7xl mx-auto px-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-2">
@@ -422,10 +434,10 @@ export default function HomePage() {
               </div>
               <span className="text-xl font-black tracking-tighter text-[#008489]">HostFlow</span>
             </div>
-            <div className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-300">
+            <div className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-300 dark:text-slate-600">
               &copy; 2026 HostFlow &bull; Built for Superhosts
             </div>
-            <div className="flex items-center gap-6 text-xs text-gray-400">
+            <div className="flex items-center gap-6 text-xs text-gray-400 dark:text-slate-500">
               <a href="#" className="hover:text-[#008489] transition-colors">Privacy</a>
               <a href="#" className="hover:text-[#008489] transition-colors">Terms</a>
               <a href="mailto:support@hostflow.com" className="hover:text-[#008489] transition-colors">Support</a>

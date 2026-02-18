@@ -79,25 +79,25 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
   ).length;
 
   return (
-    <div className="min-h-screen bg-[#F7F7F7] pb-20">
-      <header className="bg-white border-b border-gray-200 px-8 pt-8 pb-12">
+    <div className="min-h-screen bg-[#F7F7F7] dark:bg-[#0F172A] pb-20 transition-colors duration-500">
+      <header className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 px-8 pt-8 pb-12">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
             <Link 
               href="/dashboard" 
-              className="group flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 hover:text-[#008489] transition-all"
+              className="group flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-slate-500 hover:text-[#008489] transition-all"
             >
               <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
               Portfolio Overview
             </Link>
 
             {/* TIME FILTER BAR */}
-            <div className="flex items-center gap-2 bg-gray-50 p-2 rounded-2xl border border-gray-100 shadow-sm">
-              <Calendar size={14} className="ml-2 text-gray-400" />
+            <div className="flex items-center gap-2 bg-gray-50 dark:bg-slate-800 p-2 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm">
+              <Calendar size={14} className="ml-2 text-gray-400 dark:text-slate-500" />
               <select 
                 value={selectedYear} 
                 onChange={(e) => setSelectedYear(e.target.value)} 
-                className="bg-transparent text-[11px] font-black uppercase outline-none cursor-pointer"
+                className="bg-transparent text-[11px] font-black uppercase outline-none cursor-pointer text-[#484848] dark:text-white"
               >
                 <option value="2030">2030</option>
                 <option value="2029">2029</option>
@@ -110,7 +110,7 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
                 <option value="2022">2022</option>
                 <option value="2021">2021</option>
               </select>
-              <div className="w-[1px] h-4 bg-gray-200 mx-1" />
+              <div className="w-[1px] h-4 bg-gray-200 dark:bg-slate-700 mx-1" />
               <select 
                 value={selectedPeriod} 
                 onChange={(e) => setSelectedPeriod(e.target.value)} 
@@ -141,10 +141,10 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
           
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
             <div>
-              <h1 className="text-4xl font-black text-[#484848] tracking-tighter mb-1">
+              <h1 className="text-4xl font-black text-[#484848] dark:text-white tracking-tighter mb-1">
                 {property.name}
               </h1>
-              <p className="text-gray-400 text-sm font-medium italic">
+              <p className="text-gray-400 dark:text-slate-500 text-sm font-medium italic">
                 {property.address}
               </p>
             </div>
@@ -152,15 +152,15 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
             <div className="flex items-center gap-3">
               <button 
                 onClick={() => setIsAlertOpen(true)} 
-                className={`flex items-center gap-4 px-6 py-3 rounded-2xl border transition-all bg-white hover:shadow-md ${
-                  lowStockCount > 0 ? 'border-red-100' : 'border-gray-100'
+                className={`flex items-center gap-4 px-6 py-3 rounded-2xl border transition-all bg-white dark:bg-slate-900 hover:shadow-md ${
+                  lowStockCount > 0 ? 'border-red-100 dark:border-red-900/30' : 'border-gray-100 dark:border-slate-800'
                 }`}
               >
                 <div className={`w-3 h-3 rounded-full ${
-                  lowStockCount > 0 ? 'bg-[#FF5A5F] animate-pulse' : 'bg-gray-300'
+                  lowStockCount > 0 ? 'bg-[#FF5A5F] animate-pulse' : 'bg-gray-300 dark:bg-slate-700'
                 }`} />
                 <span className={`font-bold text-sm ${
-                  lowStockCount > 0 ? 'text-[#FF5A5F]' : 'text-gray-400'
+                  lowStockCount > 0 ? 'text-[#FF5A5F]' : 'text-gray-400 dark:text-slate-500'
                 }`}>
                   {lowStockCount} Alert{lowStockCount !== 1 ? 's' : ''}
                 </span>
@@ -173,38 +173,38 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
           {/* KPI CARDS */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
             {/* REVENUE */}
-            <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 group">
+            <div className="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 group">
               <div className="flex items-center justify-between mb-3">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">
+                <p className="text-[10px] font-black text-gray-400 dark:text-slate-500 uppercase tracking-[0.2em]">
                   Revenue
                 </p>
-                <div className="w-10 h-10 rounded-xl bg-green-50 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-green-50 dark:bg-green-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <TrendingUp className="w-5 h-5 text-green-500" />
                 </div>
               </div>
-              <p className="text-3xl font-black text-[#484848] mb-2">
+              <p className="text-3xl font-black text-[#484848] dark:text-white mb-2">
                 {formatKSh(financials.revenue)}
               </p>
-              <p className="text-xs text-gray-400 font-medium flex items-center gap-1">
+              <p className="text-xs text-gray-400 dark:text-slate-500 font-medium flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400"></span>
                 {filteredData.filteredBookings.length} booking{filteredData.filteredBookings.length !== 1 ? 's' : ''}
               </p>
             </div>
 
             {/* EXPENSES */}
-            <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-lg transition-all duration-300 group">
+            <div className="bg-white dark:bg-slate-900 p-8 rounded-[2.5rem] border border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-lg transition-all duration-300 group">
               <div className="flex items-center justify-between mb-3">
-                <p className="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em]">
+                <p className="text-[10px] font-black text-gray-400 dark:text-slate-500 uppercase tracking-[0.2em]">
                   Expenses
                 </p>
-                <div className="w-10 h-10 rounded-xl bg-orange-50 flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="w-10 h-10 rounded-xl bg-orange-50 dark:bg-orange-500/10 flex items-center justify-center group-hover:scale-110 transition-transform">
                   <Package className="w-5 h-5 text-orange-500" />
                 </div>
               </div>
               <p className="text-3xl font-black text-[#FF5A5F] mb-2">
                 {formatKSh(financials.expenses)}
               </p>
-              <p className="text-xs text-gray-400 font-medium flex items-center gap-1">
+              <p className="text-xs text-gray-400 dark:text-slate-500 font-medium flex items-center gap-1">
                 <span className="w-1.5 h-1.5 rounded-full bg-orange-400"></span>
                 {filteredData.filteredLogs.length} transaction{filteredData.filteredLogs.length !== 1 ? 's' : ''}
               </p>
@@ -242,7 +242,7 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
       <main className="mx-auto max-w-7xl px-8 mt-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
-          {/* INVENTORY SECTION - Now using InventorySection component */}
+          {/* INVENTORY SECTION */}
           <div className="lg:col-span-7">
             <InventorySection
               inventory={inventory}
@@ -256,11 +256,11 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
             <section className="space-y-6">
               <div className="flex items-center justify-between px-2">
                 <div className="flex items-center gap-3">
-                  <h2 className="text-xl font-black text-[#484848] uppercase">
+                  <h2 className="text-xl font-black text-[#484848] dark:text-white uppercase">
                     Recent Stays
                   </h2>
                   {filteredData.filteredBookings.length > 0 && (
-                    <span className="text-xs font-bold text-[#008489] bg-teal-50 px-3 py-1 rounded-full">
+                    <span className="text-xs font-bold text-[#008489] bg-teal-50 dark:bg-[#008489]/10 px-3 py-1 rounded-full">
                       {filteredData.filteredBookings.length}
                     </span>
                   )}
@@ -273,8 +273,8 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
               />
             </section>
             
-            <section className="space-y-6 pt-8 border-t border-gray-200">
-              <h2 className="text-xl font-black text-[#484848] uppercase px-2">
+            <section className="space-y-6 pt-8 border-t border-gray-200 dark:border-slate-800">
+              <h2 className="text-xl font-black text-[#484848] dark:text-white uppercase px-2">
                 Activity Log
               </h2>
               <InventoryHistory logs={filteredData.filteredLogs} />
