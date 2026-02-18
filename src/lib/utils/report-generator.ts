@@ -35,6 +35,19 @@ export const exportFinancialReportPDF = (data: ReportData) => {
     year: 'numeric'
   });
 
+  // ===================================
+  // FILTER DATA BY SELECTED YEAR FIRST
+  // ===================================
+  const yearFilteredBookings = data.bookings.filter((b: any) => {
+    const bookingYear = new Date(b.check_in).getFullYear().toString();
+    return bookingYear === data.year;
+  });
+
+  const yearFilteredLogs = data.logs.filter((l: any) => {
+    const logYear = new Date(l.transaction_date || l.created_at).getFullYear().toString();
+    return logYear === data.year;
+  });
+
   let yPosition = 20;
 
   // ===================================
@@ -74,14 +87,14 @@ export const exportFinancialReportPDF = (data: ReportData) => {
   let breakdownData: any[] = [];
 
   if (data.period === 'monthly') {
-    // Monthly breakdown (12 months)
+    // Monthly breakdown (12 months) - using year-filtered data
     for (let month = 0; month < 12; month++) {
-      const monthBookings = data.bookings.filter(b => {
+      const monthBookings = yearFilteredBookings.filter(b => {
         const date = new Date(b.check_in);
         return date.getMonth() === month;
       });
 
-      const monthLogs = data.logs.filter(l => {
+      const monthLogs = yearFilteredLogs.filter(l => {
         const date = new Date(l.transaction_date || l.created_at);
         return date.getMonth() === month;
       });
@@ -103,17 +116,17 @@ export const exportFinancialReportPDF = (data: ReportData) => {
       });
     }
   } else if (data.period === 'quarterly') {
-    // Quarterly breakdown (4 quarters)
+    // Quarterly breakdown (4 quarters) - using year-filtered data
     for (let quarter = 0; quarter < 4; quarter++) {
       const startMonth = quarter * 3;
       const endMonth = startMonth + 2;
 
-      const quarterBookings = data.bookings.filter(b => {
+      const quarterBookings = yearFilteredBookings.filter(b => {
         const month = new Date(b.check_in).getMonth();
         return month >= startMonth && month <= endMonth;
       });
 
-      const quarterLogs = data.logs.filter(l => {
+      const quarterLogs = yearFilteredLogs.filter(l => {
         const month = new Date(l.transaction_date || l.created_at).getMonth();
         return month >= startMonth && month <= endMonth;
       });
@@ -135,9 +148,9 @@ export const exportFinancialReportPDF = (data: ReportData) => {
       });
     }
   } else {
-    // Yearly summary (single row)
-    const revenue = data.bookings.reduce((sum, b) => sum + (Number(b.payout_amount) || 0), 0);
-    const expenses = data.logs.reduce((sum, l) => 
+    // Yearly summary (single row) - using year-filtered data
+    const revenue = yearFilteredBookings.reduce((sum, b) => sum + (Number(b.payout_amount) || 0), 0);
+    const expenses = yearFilteredLogs.reduce((sum, l) => 
       sum + (Number(l.price_at_time || 0) * Number(l.quantity || 1)), 0
     );
     const profit = revenue - expenses;
@@ -145,7 +158,7 @@ export const exportFinancialReportPDF = (data: ReportData) => {
 
     breakdownData.push({
       period: `Full Year ${data.year}`,
-      bookings: data.bookings.length,
+      bookings: yearFilteredBookings.length,
       revenue,
       expenses,
       profit,
@@ -154,12 +167,12 @@ export const exportFinancialReportPDF = (data: ReportData) => {
   }
 
   // ===================================
-  // SUMMARY STATISTICS
+  // SUMMARY STATISTICS (using year-filtered data)
   // ===================================
   const totalRevenue = breakdownData.reduce((sum, row) => sum + row.revenue, 0);
   const totalExpenses = breakdownData.reduce((sum, row) => sum + row.expenses, 0);
   const totalProfit = totalRevenue - totalExpenses;
-  const totalBookings = data.bookings.length;
+  const totalBookings = yearFilteredBookings.length;
   const avgBookingValue = totalBookings > 0 ? totalRevenue / totalBookings : 0;
 
   doc.setFontSize(11);
@@ -250,10 +263,10 @@ export const exportFinancialReportPDF = (data: ReportData) => {
   yPosition = (doc as any).lastAutoTable.finalY + 15;
 
   // ===================================
-  // TOP EXPENSE CATEGORIES (if space)
+  // TOP EXPENSE CATEGORIES (if space) - using year-filtered data
   // ===================================
   if (yPosition < 240) {
-    const expenseByCategory = data.logs.reduce((acc: any, log: any) => {
+    const expenseByCategory = yearFilteredLogs.reduce((acc: any, log: any) => {
       const category = log.item_name || 'Other';
       const cost = Number(log.price_at_time || 0) * Number(log.quantity || 1);
       acc[category] = (acc[category] || 0) + cost;

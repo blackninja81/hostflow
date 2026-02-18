@@ -10,12 +10,11 @@ import {
 // Components
 import AddItemModal from "../../../../components/dashboard/add-item-modal";
 import AddBookingModal from "../../../../components/dashboard/add-booking-modal";
-import StockAdjuster from "../../../../components/dashboard/stock-adjuster";
 import InventoryHistory from "../../../../components/dashboard/inventory-history";
 import BookingsList from "../../../../components/dashboard/bookings-list";
 import LowStockModal from "../../../../components/dashboard/low-stock-modal";
-import ItemSettings from "../../../../components/dashboard/item-settings";
-import FinancialReportButton from "@/src/components/dashboard/FinancialReportButton";
+import FinancialReportButton from "../../../../components/dashboard/FinancialReportButton";
+import InventorySection from "./InventorySection";
 
 const formatKSh = (amount: number) => {
   return new Intl.NumberFormat('en-KE', {
@@ -48,7 +47,7 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
 
     return {
       filteredBookings: bookings.filter((b: any) => isWithinRange(b.check_in || b.created_at)),
-      filteredLogs: logs.filter((l: any) => isWithinRange(l.created_at))
+      filteredLogs: logs.filter((l: any) => isWithinRange(l.transaction_date || l.created_at))
     };
   }, [selectedYear, selectedPeriod, bookings, logs]);
 
@@ -243,89 +242,13 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
       <main className="mx-auto max-w-7xl px-8 mt-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
           
-          {/* INVENTORY SECTION */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="flex items-center justify-between px-2">
-              <div className="flex items-center gap-3">
-                <h2 className="text-xl font-black text-[#484848] uppercase tracking-tight">
-                  Supply Inventory
-                </h2>
-                <span className="text-xs font-bold text-gray-400 bg-gray-100 px-3 py-1 rounded-full">
-                  {inventory.length} Items
-                </span>
-              </div>
-              {lowStockCount > 0 && (
-                <span className="text-xs font-bold text-red-600 bg-red-50 px-3 py-1 rounded-full animate-pulse">
-                  {lowStockCount} Low Stock
-                </span>
-              )}
-            </div>
-            <div className="space-y-4">
-              {inventory.map((item: any) => {
-                const isLow = !item.is_permanent && item.quantity <= item.min_stock;
-                return (
-                  <div 
-                    key={item.id} 
-                    className={`group transition-all rounded-[2.5rem] p-6 border-2 ${
-                      isLow 
-                        ? 'bg-red-50/40 border-red-100' 
-                        : 'bg-white border-gray-100 shadow-sm hover:shadow-md'
-                    }`}
-                  >
-                    {/* TOP ROW: Icon, Name, Badge */}
-                    <div className="flex items-start gap-5 mb-4">
-                      <div className={`p-4 rounded-[1.25rem] shrink-0 ${
-                        isLow ? 'bg-red-100 text-red-600' : 'bg-teal-50 text-[#008489]'
-                      }`}>
-                        <Package size={22} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <h3 className="font-black text-[#484848] text-lg uppercase leading-tight">
-                            {item.name}
-                          </h3>
-                          {isLow && (
-                            <span className="text-[8px] font-black bg-red-500 text-white px-2 py-0.5 rounded-full uppercase whitespace-nowrap shrink-0">
-                              Low
-                            </span>
-                          )}
-                        </div>
-                        <p className="text-[10px] font-black text-[#008489] uppercase tracking-wider">
-                          {formatKSh(item.cost_per_unit)} / Unit
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* BOTTOM ROW: Stock Info & Actions */}
-                    <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-                      <div className="text-left">
-                        <p className="text-[9px] font-black text-gray-400 uppercase mb-1">
-                          Stock Level
-                        </p>
-                        <span className={`inline-block text-[11px] font-black px-3 py-1 rounded-full uppercase ${
-                          item.is_permanent 
-                            ? 'bg-teal-100 text-[#008489]' 
-                            : isLow 
-                              ? 'bg-red-100 text-red-600'
-                              : 'bg-gray-100 text-gray-700'
-                        }`}>
-                          {item.is_permanent ? 'Utility' : `${item.quantity} Units`}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <StockAdjuster 
-                          itemId={item.id} 
-                          propertyId={property.id} 
-                          isPermanent={item.is_permanent} 
-                          defaultPrice={item.cost_per_unit || 0} 
-                        />
-                        <ItemSettings item={item} propertyId={property.id} />
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+          {/* INVENTORY SECTION - Now using InventorySection component */}
+          <div className="lg:col-span-7">
+            <InventorySection
+              inventory={inventory}
+              property={property}
+              lowStockCount={lowStockCount}
+            />
           </div>
 
           {/* BOOKINGS & LOGS SECTION */}
@@ -344,7 +267,6 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
                 </div>
               </div>
               
-              {/* BookingsList component includes edit/delete functionality */}
               <BookingsList 
                 bookings={filteredData.filteredBookings} 
                 propertyId={property.id} 
@@ -357,12 +279,12 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
               </h2>
               <InventoryHistory logs={filteredData.filteredLogs} />
               <FinancialReportButton
-  property={property}
-  inventory={inventory}
-  logs={logs}
-  bookings={bookings}
-  selectedYear={selectedYear}
-/>
+                property={property}
+                inventory={inventory}
+                logs={logs}
+                bookings={bookings}
+                selectedYear={selectedYear}
+              />
             </section>
           </div>
         </div>

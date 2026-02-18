@@ -15,7 +15,6 @@ export async function createProperty(formData: FormData) {
   const imageFile = formData.get('thumbnail') as File
   let thumbnailUrl = null
 
-  // 1. Logic block (Everything that can fail goes in here)
   try {
     if (imageFile && imageFile.size > 0) {
       const fileExt = imageFile.name.split('.').pop()
@@ -61,7 +60,6 @@ export async function createProperty(formData: FormData) {
 export async function deleteProperty(propertyId: string, thumbnailUrl: string | null) {
   const supabase = await createClient()
   
-  // 1. Storage Cleanup
   if (thumbnailUrl) {
     const fileName = thumbnailUrl.split('/').pop()
     const { data: { user } } = await supabase.auth.getUser()
