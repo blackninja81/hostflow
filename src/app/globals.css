@@ -1,7 +1,43 @@
 @import "tailwindcss";
 
-:root {
-  --primary: #FF5A5F;
-  --secondary: #008489;
-  --Dark:#484848;
+/* 1. Define the custom variant */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* 2. Map the theme variables */
+@theme {
+  --color-brand: #008489;
+  --color-slate-900: #0f172a;
+}
+
+/* 3. The "No-Fail" Dark Mode Block */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+  
+  .dark {
+    color-scheme: dark;
+  }
+
+  /* Force the background and text globally */
+  body {
+    @apply bg-white text-gray-900 transition-colors duration-300;
+  }
+
+  .dark body {
+    @apply bg-[#0f172a] text-slate-100;
+  }
+}
+
+/* 4. Specific Modal Styles (If Utility Classes fail) */
+.dark .modal-card {
+  background-color: #1e293b !important;
+  color: white !important;
+  border-color: #334155 !important;
+}
+
+.dark .modal-input {
+  background-color: #0f172a !important;
+  color: white !important;
+  border-color: #334155 !important;
 }

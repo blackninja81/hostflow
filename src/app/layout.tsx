@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "../components/themeProvider";
 
 // Modern, professional font pairing
 const inter = Inter({
@@ -106,7 +107,9 @@ export default function RootLayout({
         className={`${inter.variable} ${manrope.variable} font-sans antialiased bg-white text-[#484848]`}
         suppressHydrationWarning
       >
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         {children}
+        </ThemeProvider>
       </body>
     </html>
   );
