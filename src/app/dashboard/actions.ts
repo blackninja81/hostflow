@@ -299,3 +299,50 @@ export async function updateBooking(propertyId: string, formData: FormData) {
   return { success: true };
 }
 
+export async function deleteInventoryLog(logId: string, propertyId: string) {
+  const supabase = await createClient();
+
+  // 1. Fetch the log first to know what we are "undoing"
+  const { data: log, error: fetchError } = await supabase
+    .from('inventory_logs')
+    .select('*')
+    .eq('id', logId)
+    .single();
+
+  if (!log) return { success: true };
+
+  if (fetchError || !log) {
+    console.error("Fetch Error:", fetchError);
+    throw new Error("Log not found");
+  }
+
+  const reversalAmount = log.action_type === 'DISPATCH' ? log.amount : -log.amount;
+
+  // 3. Update the stock level
+  const { data: item } = await supabase
+    .from('inventory_items')
+    .select('quantity, is_permanent')
+    .eq('id', log.item_id)
+    .single();
+
+  if (item && !item.is_permanent) {
+    await supabase
+      .from('inventory_items')
+      .update({ quantity: (item.quantity || 0) + reversalAmount })
+      .eq('id', log.item_id);
+  }
+
+  // 4. THE DELETE COMMAND
+  const { error: deleteError } = await supabase
+    .from('inventory_logs')
+    .delete()
+    .eq('id', logId);
+
+  if (deleteError) {
+    console.error("Delete Error:", deleteError);
+    throw new Error(deleteError.message);
+  }
+
+  // 5. Force the UI to refresh
+  revalidatePath(`/dashboard/properties/${propertyId}`);
+}
