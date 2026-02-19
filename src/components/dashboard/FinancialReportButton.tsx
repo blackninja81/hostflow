@@ -21,22 +21,24 @@ export default function FinancialReportButton({
 }: FinancialReportButtonProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [showMonthPicker, setShowMonthPicker] = useState(false);
 
-  const handleGenerateReport = async (period: 'monthly' | 'quarterly' | 'yearly') => {
+  const handleGenerateReport = async (period: 'monthly' | 'quarterly' | 'yearly', selectedMonth?: number) => {
     setIsGenerating(true);
     setIsOpen(false);
+    setShowMonthPicker(false);
 
     try {
-      // Slight delay for UX
       await new Promise(resolve => setTimeout(resolve, 300));
 
       exportFinancialReportPDF({
         propertyName: property.name,
         year: selectedYear,
-        period,
+        period: selectedMonth !== undefined ? 'single-month' : period,
         bookings,
         logs,
-        inventory
+        inventory,
+        selectedMonth
       });
     } catch (error) {
       console.error('Failed to generate report:', error);
@@ -45,6 +47,11 @@ export default function FinancialReportButton({
       setIsGenerating(false);
     }
   };
+
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
 
   return (
     <div className="relative">
@@ -103,6 +110,45 @@ export default function FinancialReportButton({
                   </p>
                 </div>
               </button>
+
+              {/* Single Month Report */}
+              <div className="relative">
+                <button
+                  onClick={() => setShowMonthPicker(!showMonthPicker)}
+                  className="w-full flex items-start gap-3 p-3 rounded-lg hover:bg-teal-50 transition-all group text-left"
+                >
+                  <div className="p-2 rounded-lg bg-teal-50 text-[#008489] group-hover:bg-[#008489] group-hover:text-white transition-all shrink-0">
+                    <FileText size={16} />
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-black text-sm text-[#484848] mb-0.5">
+                      Single Month Report
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      Detailed report for a specific month
+                    </p>
+                  </div>
+                  <ChevronDown 
+                    size={16} 
+                    className={`text-gray-400 transition-transform ${showMonthPicker ? 'rotate-180' : ''}`}
+                  />
+                </button>
+
+                {/* Month Picker Submenu */}
+                {showMonthPicker && (
+                  <div className="ml-4 mt-1 p-2 bg-gray-50 rounded-lg grid grid-cols-3 gap-1">
+                    {months.map((month, index) => (
+                      <button
+                        key={month}
+                        onClick={() => handleGenerateReport('monthly', index)}
+                        className="px-2 py-1.5 text-xs font-bold text-gray-600 hover:bg-[#008489] hover:text-white rounded transition-all"
+                      >
+                        {month.slice(0, 3)}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
 
               {/* Quarterly Report */}
               <button
