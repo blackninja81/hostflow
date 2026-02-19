@@ -6,7 +6,7 @@ import { ArrowRight, BarChart3, Package, ShieldCheck, TrendingUp, Clock, Star, C
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0F172A] text-[#484848] dark:text-slate-200 selection:bg-[#008489]/20 scroll-smooth transition-colors duration-500">
+    <div className="min-h-screen bg-white dark:bg-[#0F172A] text-[#484848] dark:text-slate-200 selection:bg-brand/20 scroll-smooth transition-colors duration-500">
       {/* --- NAVIGATION --- */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-[#0F172A]/80 backdrop-blur-xl border-b border-gray-100 dark:border-slate-800 transition-colors duration-500">
         <div className="flex items-center justify-between px-8 py-4 max-w-7xl mx-auto">
@@ -14,7 +14,7 @@ export default function HomePage() {
             <div className="relative w-10 h-10 group-hover:scale-110 transition-transform">
               <img src="/logo.png" alt="HostFlow" className="w-full h-full object-contain" />
             </div>
-            <span className="text-2xl font-black tracking-tighter text-[#008489]">HostFlow</span>
+            <span className="text-2xl font-black tracking-tighter text-brand">HostFlow</span>
           </Link>
 
           <div className="flex items-center gap-4 md:gap-8">
@@ -22,7 +22,7 @@ export default function HomePage() {
             <div className="hidden md:flex items-center gap-8 text-[11px] font-black uppercase tracking-widest text-gray-400 dark:text-slate-500">
               <a 
                 href="#features" 
-                className="hover:text-[#008489] dark:hover:text-[#008489] transition-colors cursor-pointer"
+                className="hover:text-brand dark:hover:text-brand transition-colors cursor-pointer"
                 onClick={(e) => {
                   e.preventDefault();
                   document.querySelector('#features')?.scrollIntoView({ behavior: 'smooth' });
@@ -32,7 +32,7 @@ export default function HomePage() {
               </a>
               <a 
                 href="#how-it-works" 
-                className="hover:text-[#008489] dark:hover:text-[#008489] transition-colors cursor-pointer"
+                className="hover:text-brand dark:hover:text-brand transition-colors cursor-pointer"
                 onClick={(e) => {
                   e.preventDefault();
                   document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' });
@@ -42,7 +42,7 @@ export default function HomePage() {
               </a>
               <a 
                 href="#pricing" 
-                className="hover:text-[#008489] dark:hover:text-[#008489] transition-colors cursor-pointer"
+                className="hover:text-brand dark:hover:text-brand transition-colors cursor-pointer"
                 onClick={(e) => {
                   e.preventDefault();
                   document.querySelector('#pricing')?.scrollIntoView({ behavior: 'smooth' });
@@ -56,7 +56,7 @@ export default function HomePage() {
             <div className="flex items-center gap-3">
               <ThemeToggle />
               
-              <Link href="/auth/login" className="hidden sm:block bg-[#008489] text-white px-6 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-[#006d73] transition-all shadow-lg shadow-[#008489]/20 hover:shadow-xl hover:shadow-[#008489]/30">
+              <Link href="/auth/login" className="hidden sm:block bg-brand text-white px-6 py-3 rounded-full text-[11px] font-black uppercase tracking-widest hover:bg-[#006d73] transition-all shadow-lg shadow-brand/20 hover:shadow-xl hover:shadow-brand/30">
                 Sign In
               </Link>
 
@@ -75,10 +75,10 @@ export default function HomePage() {
       <section className="relative pt-32 pb-20 md:pt-40 md:pb-32 px-8 overflow-hidden">
         <div className="max-w-7xl mx-auto text-center relative z-10">
           {/* Badge */}
-          <div className="inline-flex items-center gap-2 bg-gradient-to-r from-teal-50 to-green-50 dark:from-teal-950/30 dark:to-green-950/30 text-[#008489] px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-8 border border-teal-100 dark:border-[#008489]/30 shadow-sm">
+          <div className="inline-flex items-center gap-2 bg-linear-to-r from-teal-50 to-green-50 dark:from-teal-950/30 dark:to-green-950/30 text-brand px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-[0.2em] mb-8 border border-teal-100 dark:border-brand/30 shadow-sm">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#008489] opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#008489]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand"></span>
             </span>
             Now supporting multi-property management
           </div>
@@ -86,7 +86,7 @@ export default function HomePage() {
           {/* Main Headline */}
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#484848] dark:text-white tracking-tighter mb-6 leading-[0.95]">
             Manage your stays. <br />
-            <span className="bg-gradient-to-r from-[#008489] to-[#00a699] bg-clip-text text-transparent">Master your margins.</span>
+            <span className="bg-linear-to-r from-brand to-[#00a699] bg-clip-text text-transparent">Master your margins.</span>
           </h1>
           
           {/* Subheadline */}
@@ -97,13 +97,13 @@ export default function HomePage() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-16">
-            <Link href="/auth/login" className="group flex items-center gap-3 bg-[#008489] text-white px-10 py-5 rounded-[2rem] text-lg font-black transition-all hover:scale-105 hover:shadow-2xl hover:shadow-[#008489]/40">
+            <Link href="/auth/login" className="group flex items-center gap-3 bg-brand text-white px-10 py-5 rounded-4xl text-lg font-black transition-all hover:scale-105 hover:shadow-2xl hover:shadow-brand/40">
               Start Free Trial
               <ArrowRight className="group-hover:translate-x-1 transition-transform" size={20} />
             </Link>
             <a 
               href="#how-it-works" 
-              className="px-10 py-5 rounded-[2rem] text-lg font-black text-[#484848] dark:text-white hover:bg-gray-50 dark:hover:bg-slate-800 transition-all border-2 border-transparent hover:border-gray-200 dark:hover:border-slate-700 cursor-pointer"
+              className="px-10 py-5 rounded-4xl text-lg font-black text-[#484848] dark:text-white hover:bg-gray-50 dark:hover:bg-slate-800 transition-all border-2 border-transparent hover:border-gray-200 dark:hover:border-slate-700 cursor-pointer"
               onClick={(e) => {
                 e.preventDefault();
                 document.querySelector('#how-it-works')?.scrollIntoView({ behavior: 'smooth' });
@@ -131,17 +131,17 @@ export default function HomePage() {
         </div>
 
         {/* --- DECORATIVE ELEMENTS --- */}
-        <div className="absolute top-0 -left-20 w-96 h-96 bg-gradient-to-br from-teal-100 to-green-100 dark:from-[#008489]/20 dark:to-green-900/10 opacity-50 rounded-full blur-[120px] -z-10" />
-        <div className="absolute bottom-0 -right-20 w-96 h-96 bg-gradient-to-br from-[#FF5A5F]/10 to-orange-100/50 dark:from-[#FF5A5F]/5 dark:to-orange-900/10 rounded-full blur-[120px] -z-10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-blue-50 to-purple-50 dark:from-blue-900/10 dark:to-purple-900/10 opacity-30 rounded-full blur-[150px] -z-10" />
+        <div className="absolute top-0 -left-20 w-96 h-96 bg-linear-to-br from-teal-100 to-green-100 dark:from-brand/20 dark:to-green-900/10 opacity-50 rounded-full blur-[120px] -z-10" />
+        <div className="absolute bottom-0 -right-20 w-96 h-96 bg-linear-to-br from-[#FF5A5F]/10 to-orange-100/50 dark:from-[#FF5A5F]/5 dark:to-orange-900/10 rounded-full blur-[120px] -z-10" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gralineardient-to-br from-blue-50 to-purple-50 dark:from-blue-900/10 dark:to-purple-900/10 opacity-30 rounded-full blur-[150px] -z-10" />
       </section>
 
       {/* --- FEATURE GRID --- */}
-      <section id="features" className="py-24 bg-gradient-to-br from-[#F7F7F7] to-gray-50 dark:from-slate-900 dark:to-slate-900/50 rounded-[4rem] mx-4 border border-gray-100 dark:border-slate-800 shadow-inner transition-colors">
+      <section id="features" className="py-24 bg-linear-to-br from-[#F7F7F7] to-gray-50 dark:from-slate-900 dark:to-slate-900/50 rounded-[4rem] mx-4 border border-gray-100 dark:border-slate-800 shadow-inner transition-colors">
         <div className="max-w-7xl mx-auto px-8">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-[#008489] bg-teal-50 dark:bg-teal-950/30 px-4 py-2 rounded-full mb-4 border border-teal-100 dark:border-[#008489]/20">
+            <div className="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-brand bg-teal-50 dark:bg-teal-950/30 px-4 py-2 rounded-full mb-4 border border-teal-100 dark:border-brand/20">
               Features
             </div>
             <h2 className="text-4xl md:text-5xl font-black text-[#484848] dark:text-white tracking-tighter mb-4">
@@ -155,9 +155,9 @@ export default function HomePage() {
           {/* Feature Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Feature 1 */}
-            <div className="group bg-white dark:bg-slate-800/50 p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-800 hover:border-[#008489]/20">
-              <div className="w-14 h-14 bg-gradient-to-br from-teal-50 to-green-50 dark:from-teal-900/20 dark:to-green-900/20 rounded-2xl flex items-center justify-center shadow-sm border border-teal-100 dark:border-teal-800 mb-6 group-hover:scale-110 transition-transform">
-                <Package className="text-[#008489]" size={28} />
+            <div className="group bg-white dark:bg-slate-800/50 p-8 rounded-4xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-800 hover:border-brand/20">
+              <div className="w-14 h-14 bg-linear-to-br from-teal-50 to-green-50 dark:from-teal-900/20 dark:to-green-900/20 rounded-2xl flex items-center justify-center shadow-sm border border-teal-100 dark:border-teal-800 mb-6 group-hover:scale-110 transition-transform">
+                <Package className="text-brand" size={28} />
               </div>
               <h3 className="text-xl font-black text-[#484848] dark:text-white uppercase tracking-tight mb-3">Smart Inventory</h3>
               <p className="text-gray-500 dark:text-slate-400 text-sm leading-relaxed mb-4">
@@ -165,23 +165,23 @@ export default function HomePage() {
               </p>
               <ul className="space-y-2 text-xs text-gray-400 dark:text-slate-500">
                 <li className="flex items-center gap-2">
-                  <CheckCircle size={14} className="text-[#008489]" />
+                  <CheckCircle size={14} className="text-brand" />
                   Real-time stock tracking
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle size={14} className="text-[#008489]" />
+                  <CheckCircle size={14} className="text-brand" />
                   Custom restock thresholds
                 </li>
                 <li className="flex items-center gap-2">
-                  <CheckCircle size={14} className="text-[#008489]" />
+                  <CheckCircle size={14} className="text-brand" />
                   Shopping list generation
                 </li>
               </ul>
             </div>
 
             {/* Feature 2 */}
-            <div className="group bg-white dark:bg-slate-800/50 p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-800 hover:border-[#FF5A5F]/20">
-              <div className="w-14 h-14 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 rounded-2xl flex items-center justify-center shadow-sm border border-red-100 dark:border-red-800 mb-6 group-hover:scale-110 transition-transform">
+            <div className="group bg-white dark:bg-slate-800/50 p-8 rounded-4xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-800 hover:border-[#FF5A5F]/20">
+              <div className="w-14 h-14 bg-linear-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20 rounded-2xl flex items-center justify-center shadow-sm border border-red-100 dark:border-red-800 mb-6 group-hover:scale-110 transition-transform">
                 <BarChart3 className="text-[#FF5A5F]" size={28} />
               </div>
               <h3 className="text-xl font-black text-[#484848] dark:text-white uppercase tracking-tight mb-3">Profit Analytics</h3>
@@ -205,8 +205,8 @@ export default function HomePage() {
             </div>
 
             {/* Feature 3 */}
-            <div className="group bg-white dark:bg-slate-800/50 p-8 rounded-[2rem] shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-800 hover:border-teal-600/20">
-              <div className="w-14 h-14 bg-gradient-to-br from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 rounded-2xl flex items-center justify-center shadow-sm border border-teal-100 dark:border-teal-800 mb-6 group-hover:scale-110 transition-transform">
+            <div className="group bg-white dark:bg-slate-800/50 p-8 rounded-4xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-slate-800 hover:border-teal-600/20">
+              <div className="w-14 h-14 bg-linear-to-br from-teal-50 to-cyan-50 dark:from-teal-900/20 dark:to-cyan-900/20 rounded-2xl flex items-center justify-center shadow-sm border border-teal-100 dark:border-teal-800 mb-6 group-hover:scale-110 transition-transform">
                 <ShieldCheck className="text-teal-600" size={28} />
               </div>
               <h3 className="text-xl font-black text-[#484848] dark:text-white uppercase tracking-tight mb-3">Multi-Property</h3>
@@ -237,7 +237,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-[#008489] bg-teal-50 dark:bg-teal-950/30 px-4 py-2 rounded-full mb-4 border border-teal-100 dark:border-[#008489]/20">
+            <div className="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-brand bg-teal-50 dark:bg-teal-950/30 px-4 py-2 rounded-full mb-4 border border-teal-100 dark:border-brand/20">
               How It Works
             </div>
             <h2 className="text-4xl md:text-5xl font-black text-[#484848] dark:text-white tracking-tighter mb-4">
@@ -249,12 +249,12 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Step 1 */}
             <div className="relative">
-              <div className="absolute -top-4 -left-4 w-12 h-12 bg-[#008489] text-white rounded-full flex items-center justify-center font-black text-xl z-20">
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-brand text-white rounded-full flex items-center justify-center font-black text-xl z-20">
                 1
               </div>
-              <div className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border-2 border-gray-100 dark:border-slate-800 h-full pt-12 transition-colors">
+              <div className="bg-white dark:bg-slate-900 p-8 rounded-4xl border-2 border-gray-100 dark:border-slate-800 h-full pt-12 transition-colors">
                 <div className="w-12 h-12 bg-teal-50 dark:bg-teal-900/20 rounded-xl flex items-center justify-center mb-4">
-                  <Package className="text-[#008489]" size={24} />
+                  <Package className="text-brand" size={24} />
                 </div>
                 <h3 className="text-lg font-black text-[#484848] dark:text-white uppercase tracking-tight mb-2">Add Your Properties</h3>
                 <p className="text-gray-500 dark:text-slate-400 text-sm leading-relaxed">
@@ -265,10 +265,10 @@ export default function HomePage() {
 
             {/* Step 2 */}
             <div className="relative">
-              <div className="absolute -top-4 -left-4 w-12 h-12 bg-[#008489] text-white rounded-full flex items-center justify-center font-black text-xl z-20">
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-brand text-white rounded-full flex items-center justify-center font-black text-xl z-20">
                 2
               </div>
-              <div className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border-2 border-gray-100 dark:border-slate-800 h-full pt-12 transition-colors">
+              <div className="bg-white dark:bg-slate-900 p-8 rounded-4xl border-2 border-gray-100 dark:border-slate-800 h-full pt-12 transition-colors">
                 <div className="w-12 h-12 bg-red-50 dark:bg-red-900/20 rounded-xl flex items-center justify-center mb-4">
                   <TrendingUp className="text-[#FF5A5F]" size={24} />
                 </div>
@@ -281,10 +281,10 @@ export default function HomePage() {
 
             {/* Step 3 */}
             <div className="relative">
-              <div className="absolute -top-4 -left-4 w-12 h-12 bg-[#008489] text-white rounded-full flex items-center justify-center font-black text-xl z-20">
+              <div className="absolute -top-4 -left-4 w-12 h-12 bg-brand text-white rounded-full flex items-center justify-center font-black text-xl z-20">
                 3
               </div>
-              <div className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border-2 border-gray-100 dark:border-slate-800 h-full pt-12 transition-colors">
+              <div className="bg-white dark:bg-slate-900 p-8 rounded-4xl border-2 border-gray-100 dark:border-slate-800 h-full pt-12 transition-colors">
                 <div className="w-12 h-12 bg-teal-50 dark:bg-teal-900/20 rounded-xl flex items-center justify-center mb-4">
                   <Clock className="text-teal-600" size={24} />
                 </div>
@@ -299,11 +299,11 @@ export default function HomePage() {
       </section>
 
       {/* --- PRICING SECTION --- */}
-      <section id="pricing" className="py-24 px-8 bg-gradient-to-br from-[#F7F7F7] to-gray-50 dark:from-slate-950 dark:to-[#0F172A] transition-colors">
+      <section id="pricing" className="py-24 px-8 bg-linear-to-br from-[#F7F7F7] to-gray-50 dark:from-slate-950 dark:to-[#0F172A] transition-colors">
         <div className="max-w-7xl mx-auto">
           {/* Section Header */}
           <div className="text-center mb-16">
-            <div className="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-[#008489] bg-teal-50 dark:bg-teal-950/30 px-4 py-2 rounded-full mb-4 border border-teal-100 dark:border-[#008489]/20">
+            <div className="inline-block text-[10px] font-black uppercase tracking-[0.2em] text-brand bg-teal-50 dark:bg-teal-950/30 px-4 py-2 rounded-full mb-4 border border-teal-100 dark:border-brand/20">
               Simple Pricing
             </div>
             <h2 className="text-4xl md:text-5xl font-black text-[#484848] dark:text-white tracking-tighter mb-4">
@@ -317,21 +317,21 @@ export default function HomePage() {
           {/* Pricing Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Starter */}
-            <div className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border-2 border-gray-100 dark:border-slate-800 hover:border-gray-200 dark:hover:border-slate-700 transition-all">
+            <div className="bg-white dark:bg-slate-900 p-8 rounded-4xl border-2 border-gray-100 dark:border-slate-800 hover:border-gray-200 dark:hover:border-slate-700 transition-all">
               <div className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Starter</div>
               <div className="text-4xl font-black text-[#484848] dark:text-white mb-2">Free</div>
               <p className="text-sm text-gray-500 dark:text-slate-400 mb-6">Perfect for getting started</p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300">
-                  <CheckCircle size={16} className="text-[#008489]" />
+                  <CheckCircle size={16} className="text-brand" />
                   1 property
                 </li>
                 <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300">
-                  <CheckCircle size={16} className="text-[#008489]" />
+                  <CheckCircle size={16} className="text-brand" />
                   Basic inventory tracking
                 </li>
                 <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300">
-                  <CheckCircle size={16} className="text-[#008489]" />
+                  <CheckCircle size={16} className="text-brand" />
                   Booking management
                 </li>
               </ul>
@@ -341,7 +341,7 @@ export default function HomePage() {
             </div>
 
             {/* Pro */}
-            <div className="bg-gradient-to-br from-[#008489] to-[#006d73] p-8 rounded-[2rem] border-2 border-[#008489] shadow-2xl shadow-[#008489]/30 scale-105 relative z-10">
+            <div className="bg-linear-to-br from-brand to-[#006d73] p-8 rounded-4xl border-2 border-brand shadow-2xl shadow-brand/30 scale-105 relative z-10">
               <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#FF5A5F] text-white text-[8px] font-black uppercase tracking-widest px-4 py-1 rounded-full">
                 Most Popular
               </div>
@@ -366,31 +366,31 @@ export default function HomePage() {
                   Priority support
                 </li>
               </ul>
-              <Link href="/auth/login" className="block w-full bg-white text-[#008489] text-center px-6 py-3 rounded-full font-black hover:bg-gray-50 transition-all">
+              <Link href="/auth/login" className="block w-full bg-white text-brand text-center px-6 py-3 rounded-full font-black hover:bg-gray-50 transition-all">
                 Start Free Trial
               </Link>
             </div>
 
             {/* Enterprise */}
-            <div className="bg-white dark:bg-slate-900 p-8 rounded-[2rem] border-2 border-gray-100 dark:border-slate-800 hover:border-gray-200 dark:hover:border-slate-700 transition-all">
+            <div className="bg-white dark:bg-slate-900 p-8 rounded-4xl border-2 border-gray-100 dark:border-slate-800 hover:border-gray-200 dark:hover:border-slate-700 transition-all">
               <div className="text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 mb-2">Enterprise</div>
               <div className="text-4xl font-black text-[#484848] dark:text-white mb-2">Custom</div>
               <p className="text-sm text-gray-500 dark:text-slate-400 mb-6">For property managers</p>
               <ul className="space-y-3 mb-8">
                 <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300">
-                  <CheckCircle size={16} className="text-[#008489]" />
+                  <CheckCircle size={16} className="text-brand" />
                   Unlimited properties
                 </li>
                 <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300">
-                  <CheckCircle size={16} className="text-[#008489]" />
+                  <CheckCircle size={16} className="text-brand" />
                   Custom integrations
                 </li>
                 <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300">
-                  <CheckCircle size={16} className="text-[#008489]" />
+                  <CheckCircle size={16} className="text-brand" />
                   White-label option
                 </li>
                 <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-slate-300">
-                  <CheckCircle size={16} className="text-[#008489]" />
+                  <CheckCircle size={16} className="text-brand" />
                   Dedicated support
                 </li>
               </ul>
@@ -404,7 +404,7 @@ export default function HomePage() {
 
       {/* --- FINAL CTA SECTION --- */}
       <section className="py-24 px-8">
-        <div className="max-w-4xl mx-auto text-center bg-gradient-to-br from-[#008489] to-[#00a699] p-12 md:p-16 rounded-[3rem] relative overflow-hidden">
+        <div className="max-w-4xl mx-auto text-center bg-linear-to-br from-brand to-[#00a699] p-12 md:p-16 rounded-[3rem] relative overflow-hidden">
           <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
           <div className="relative z-10">
             <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter mb-6">
@@ -413,7 +413,7 @@ export default function HomePage() {
             <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
               Join hundreds of hosts who've already transformed their operations with HostFlow.
             </p>
-            <Link href="/auth/login" className="inline-flex items-center gap-3 bg-white text-[#008489] px-10 py-5 rounded-[2rem] text-lg font-black hover:scale-105 transition-all shadow-2xl hover:shadow-white/20">
+            <Link href="/auth/login" className="inline-flex items-center gap-3 bg-white text-brand px-10 py-5 rounded-4xl text-lg font-black hover:scale-105 transition-all shadow-2xl hover:shadow-white/20">
               Start Your Free Trial
               <ArrowRight size={20} />
             </Link>
@@ -432,15 +432,15 @@ export default function HomePage() {
               <div className="relative w-8 h-8">
                 <img src="/logo.png" alt="HostFlow" className="w-full h-full object-contain" />
               </div>
-              <span className="text-xl font-black tracking-tighter text-[#008489]">HostFlow</span>
+              <span className="text-xl font-black tracking-tighter text-brand">HostFlow</span>
             </div>
             <div className="text-[10px] font-black uppercase tracking-[0.3em] text-gray-300 dark:text-slate-600">
               &copy; 2026 HostFlow &bull; Built for Superhosts
             </div>
             <div className="flex items-center gap-6 text-xs text-gray-400 dark:text-slate-500">
-              <a href="#" className="hover:text-[#008489] transition-colors">Privacy</a>
-              <a href="#" className="hover:text-[#008489] transition-colors">Terms</a>
-              <a href="mailto:support@hostflow.com" className="hover:text-[#008489] transition-colors">Support</a>
+              <a href="#" className="hover:text-brand transition-colors">Privacy</a>
+              <a href="#" className="hover:text-brand transition-colors">Terms</a>
+              <a href="mailto:support@hostflow.com" className="hover:text-brand transition-colors">Support</a>
             </div>
           </div>
         </div>

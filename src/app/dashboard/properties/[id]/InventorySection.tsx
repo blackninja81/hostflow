@@ -85,7 +85,6 @@ export default function InventorySection({
         )}
       </div>
 
-      {/* Search and Filters Row - Fixed Overflow with overflow-x-auto */}
       <div className="flex flex-col lg:flex-row gap-3">
         <div className="relative flex-1">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
@@ -98,7 +97,6 @@ export default function InventorySection({
           />
         </div>
 
-        {/* Horizontal Scroll for Mobile Filters */}
         <div className="flex items-center gap-2 overflow-x-auto pb-2 lg:pb-0 scrollbar-hide">
           <button
             onClick={() => handleFilterChange('all')}
