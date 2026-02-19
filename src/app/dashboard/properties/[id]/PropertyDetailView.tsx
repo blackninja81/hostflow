@@ -64,11 +64,12 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
     );
     
     // Expenses from ALL inventory logs (price_at_time * quantity)
-    const totalExpenses = filteredData.filteredLogs.reduce(
-      (acc: number, l: any) => acc + (Number(l.price_at_time || 0) * Number(l.quantity || 1)), 
-      0
-    );
-    
+    const totalExpenses = filteredData.filteredLogs.reduce((acc: number, l: any) => {
+    if (l.action_type === 'DISPATCH') {
+      return acc + (Number(l.price_at_time || 0) * Number(l.amount || 1));
+    }
+    return acc;
+  }, 0);
     const netProfit = totalRevenue - totalExpenses;
 
     return { 

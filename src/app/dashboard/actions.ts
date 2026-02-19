@@ -153,7 +153,8 @@ export async function adjustStock(
   propertyId: string, 
   amount: number, 
   type: 'DISPATCH' | 'RESTOCK',
-  customPrice?: number 
+  customPrice?: number,
+  customDate?: string
 ) {
   const supabase = await createClient();
 
@@ -165,7 +166,6 @@ export async function adjustStock(
 
   if (!item) throw new Error("Item not found");
 
-  // Use the custom price if provided, otherwise use the stored unit cost
   const finalPrice = customPrice ?? item.cost_per_unit;
 
   if (!item.is_permanent) {
@@ -179,7 +179,8 @@ export async function adjustStock(
     item_name: item.name,
     action_type: type,
     amount: amount,
-    price_at_time: finalPrice // This captures the variable cost!
+    price_at_time: finalPrice,
+    ...(customDate && { created_at: customDate })
   });
 
   revalidatePath(`/dashboard/properties/${propertyId}`);
