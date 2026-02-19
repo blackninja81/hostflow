@@ -94,7 +94,7 @@ export default function InventorySection({
             placeholder="Search items..."
             value={searchQuery}
             onChange={(e) => handleSearchChange(e.target.value)}
-            className="w-full pl-11 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-xl text-sm font-medium dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#008489] transition-all"
+            className="w-full pl-11 pr-4 py-2.5 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-xl text-sm font-medium dark:text-white placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-brand transition-all"
           />
         </div>
 
@@ -104,7 +104,7 @@ export default function InventorySection({
             onClick={() => handleFilterChange('all')}
             className={`px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all whitespace-nowrap border ${
               filterType === 'all'
-                ? 'bg-[#008489] text-white border-[#008489]'
+                ? 'bg-brand text-white border-brand'
                 : 'bg-white dark:bg-slate-900 text-gray-600 dark:text-slate-400 border-gray-200 dark:border-slate-800 hover:bg-gray-50'
             }`}
           >
@@ -124,7 +124,7 @@ export default function InventorySection({
             onClick={() => handleFilterChange('consumable')}
             className={`px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all whitespace-nowrap border ${
               filterType === 'consumable'
-                ? 'bg-[#008489] text-white border-[#008489]'
+                ? 'bg-brand text-white border-brand'
                 : 'bg-white dark:bg-slate-900 text-gray-600 dark:text-slate-400 border-gray-200 dark:border-slate-800 hover:bg-gray-50'
             }`}
           >
@@ -134,7 +134,7 @@ export default function InventorySection({
             onClick={() => handleFilterChange('utility')}
             className={`px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-wider transition-all whitespace-nowrap border ${
               filterType === 'utility'
-                ? 'bg-[#008489] text-white border-[#008489]'
+                ? 'bg-brand text-white border-brand'
                 : 'bg-white dark:bg-slate-900 text-gray-600 dark:text-slate-400 border-gray-200 dark:border-slate-800 hover:bg-gray-50'
             }`}
           >
@@ -147,7 +147,7 @@ export default function InventorySection({
       {(searchQuery || filterType !== 'all') && (
         <div className="flex items-center justify-between px-2">
           <p className="text-xs text-gray-500 dark:text-slate-500">
-            Showing <span className="font-bold text-[#008489]">{filteredInventory.length}</span> items
+            Showing <span className="font-bold text-brand">{filteredInventory.length}</span> items
           </p>
           {searchQuery && (
             <button
@@ -175,7 +175,7 @@ export default function InventorySection({
             return (
               <div 
                 key={item.id} 
-                className={`group transition-all rounded-[2rem] md:rounded-[2.5rem] p-5 md:p-6 border-2 ${
+                className={`group transition-all rounded-4xl md:rounded-[2.5rem] p-5 md:p-6 border-2 ${
                   isLow 
                     ? 'bg-red-50/40 dark:bg-red-950/10 border-red-100 dark:border-red-900/30' 
                     : 'bg-white dark:bg-slate-900 border-gray-100 dark:border-slate-800 shadow-sm hover:shadow-md'
@@ -184,7 +184,7 @@ export default function InventorySection({
                 {/* TOP ROW */}
                 <div className="flex items-start gap-4 md:gap-5 mb-4">
                   <div className={`p-4 rounded-[1.25rem] shrink-0 ${
-                    isLow ? 'bg-red-100 dark:bg-red-900/30 text-red-600' : 'bg-teal-50 dark:bg-[#008489]/10 text-[#008489]'
+                    isLow ? 'bg-red-100 dark:bg-red-900/30 text-red-600' : 'bg-teal-50 dark:bg-brand/10 text-brand'
                   }`}>
                     <Package size={22} />
                   </div>
@@ -199,7 +199,7 @@ export default function InventorySection({
                         </span>
                       )}
                     </div>
-                    <p className="text-[10px] font-black text-[#008489] uppercase tracking-wider">
+                    <p className="text-[10px] font-black text-brand uppercase tracking-wider">
                       {formatKSh(item.cost_per_unit)} / Unit
                     </p>
                   </div>
@@ -213,7 +213,7 @@ export default function InventorySection({
                     </p>
                     <span className={`inline-block text-[11px] font-black px-3 py-1 rounded-full uppercase ${
                       item.is_permanent 
-                        ? 'bg-teal-100 dark:bg-[#008489]/20 text-[#008489]' 
+                        ? 'bg-teal-100 dark:bg-brand/20 text-brand' 
                         : isLow 
                           ? 'bg-red-100 dark:bg-red-900/30 text-red-600'
                           : 'bg-gray-100 dark:bg-slate-800 text-gray-700 dark:text-slate-300'
@@ -263,7 +263,7 @@ export default function InventorySection({
                     onClick={() => setCurrentPage(pageNum)}
                     className={`min-w-[32px] h-8 rounded-lg text-xs font-black transition-all ${
                       currentPage === pageNum
-                        ? 'bg-[#008489] text-white shadow-lg'
+                        ? 'bg-brand text-white shadow-lg'
                         : 'hover:bg-gray-100 dark:hover:bg-slate-800 text-gray-600 dark:text-slate-400'
                     }`}
                   >
