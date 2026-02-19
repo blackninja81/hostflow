@@ -25,9 +25,13 @@ const formatKSh = (amount: number) => {
 };
 
 export default function PropertyDetailView({ property, inventory, logs, bookings }: any) {
+
+  const currentYear = new Date().getFullYear().toString();
+  const currentMonthIndex = new Date().getMonth().toString();
+
   const [isAlertOpen, setIsAlertOpen] = useState(false);
-  const [selectedYear, setSelectedYear] = useState("2026");
-  const [selectedPeriod, setSelectedPeriod] = useState("all");
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const [selectedPeriod, setSelectedPeriod] = useState(currentMonthIndex);
 
   // --- FILTER LOGIC ---
   const filteredData = useMemo(() => {
@@ -78,6 +82,8 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
     (i: any) => !i.is_permanent && i.quantity <= i.min_stock
   ).length;
 
+  const years = Array.from({ length: 3 }, (_, i) => (new Date().getFullYear() - i).toString());
+
   return (
     <div className="min-h-screen bg-[#F7F7F7] dark:bg-[#0F172A] pb-20 transition-colors duration-500">
       <header className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 px-8 pt-8 pb-12">
@@ -85,36 +91,25 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
             <Link 
               href="/dashboard" 
-              className="group flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-slate-500 hover:text-[#008489] transition-all"
+              className="group flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-gray-400 dark:text-slate-500 hover:text-brand transition-all"
             >
               <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" /> 
               Portfolio Overview
             </Link>
 
             {/* TIME FILTER BAR */}
-            <div className="flex items-center gap-2 bg-gray-50 dark:bg-slate-800 p-2 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm">
+            <div className="flex items-center gap-2 bg-gray-50 dark:bg-slate-800 text-brand p-2 rounded-2xl border border-gray-100 dark:border-slate-700 shadow-sm">
               <Calendar size={14} className="ml-2 text-gray-400 dark:text-slate-500" />
-              <select 
-                value={selectedYear} 
-                onChange={(e) => setSelectedYear(e.target.value)} 
-                className="bg-transparent text-[11px] font-black uppercase outline-none cursor-pointer text-[#484848] dark:text-white"
-              >
-                <option value="2030">2030</option>
-                <option value="2029">2029</option>
-                <option value="2028">2028</option>
-                <option value="2027">2027</option>
-                <option value="2026">2026</option>
-                <option value="2025">2025</option>
-                <option value="2024">2024</option>
-                <option value="2023">2023</option>
-                <option value="2022">2022</option>
-                <option value="2021">2021</option>
-              </select>
-              <div className="w-[1px] h-4 bg-gray-200 dark:bg-slate-700 mx-1" />
+              <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
+    {years.map(year => (
+      <option key={year} value={year}>{year}</option>
+    ))}
+  </select>
+              <div className="w-px h-4 bg-gray-200 dark:bg-slate-700 mx-1" />
               <select 
                 value={selectedPeriod} 
                 onChange={(e) => setSelectedPeriod(e.target.value)} 
-                className="bg-transparent text-[11px] font-black uppercase outline-none text-[#008489] cursor-pointer"
+                className="bg-transparent text-[11px] font-black uppercase outline-none text-brand cursor-pointer"
               >
                 <option value="all">Full Year</option>
                 <option value="q1">Q1 (Jan-Mar)</option>
@@ -213,8 +208,8 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
             {/* NET PROFIT */}
             <div className={`p-8 rounded-[2.5rem] shadow-xl hover:shadow-2xl transition-all duration-300 group ${
               financials.net >= 0 
-                ? 'bg-gradient-to-br from-[#008489] to-[#006d73]' 
-                : 'bg-gradient-to-br from-[#FF5A5F] to-[#e04950]'
+                ? 'bg-linear-to-br from-brand to-[#006d73]' 
+                : 'bg-linear-to-br from-[#FF5A5F] to-[#e04950]'
             }`}>
               <div className="flex items-center justify-between mb-3">
                 <p className="text-[10px] font-black text-white/70 uppercase tracking-[0.2em]">
@@ -260,7 +255,7 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
                     Recent Stays
                   </h2>
                   {filteredData.filteredBookings.length > 0 && (
-                    <span className="text-xs font-bold text-[#008489] bg-teal-50 dark:bg-[#008489]/10 px-3 py-1 rounded-full">
+                    <span className="text-xs font-bold text-brand bg-teal-50 dark:bg-brand/10 px-3 py-1 rounded-full">
                       {filteredData.filteredBookings.length}
                     </span>
                   )}

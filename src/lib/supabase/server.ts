@@ -18,8 +18,6 @@ export async function createClient() {
               cookieStore.set(name, value, options)
             )
           } catch (error) {
-            // This error is expected when called from a Server Component (Page)
-            // because cookies cannot be set during the render phase.
           }
         },
       },

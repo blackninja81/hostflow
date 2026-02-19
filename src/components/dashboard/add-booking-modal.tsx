@@ -23,24 +23,22 @@ export default function AddBookingModal({ propertyId }: { propertyId: string }) 
   if (!isOpen) return (
     <button 
       onClick={() => setIsOpen(true)}
-      className="bg-[#008489] text-white px-6 py-3 rounded-2xl font-bold text-sm shadow-lg shadow-[#008489]/20 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer"
+      className="bg-brand text-white px-6 py-3 rounded-2xl font-bold text-sm shadow-lg shadow-brand/20 hover:scale-[1.02] active:scale-95 transition-all cursor-pointer"
     >
       + Add Booking
     </button>
   )
 
   return (
-    <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
-      {/* Backdrop */}
+    <div className="fixed inset-0 z-999 flex items-center justify-center p-4">
       <div 
         className="absolute inset-0 bg-black/60 dark:bg-black/80 backdrop-blur-sm transition-opacity" 
         onClick={() => setIsOpen(false)}
       />
 
       {/* Modal Card */}
-      <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 shadow-2xl border border-gray-100 dark:border-slate-800 animate-in fade-in zoom-in duration-200">
+      <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 shadow-2xl border border-gray-100 dark:border-slate-800 animate-in fade-in zoom-in duration-200">
         
-        {/* Close Button */}
         <button 
           onClick={() => setIsOpen(false)}
           className="absolute top-6 right-6 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors cursor-pointer"
@@ -53,7 +51,6 @@ export default function AddBookingModal({ propertyId }: { propertyId: string }) 
         </h2>
         
         <form action={handleSubmit} className="space-y-5">
-          {/* Guest Name */}
           <div className="space-y-1.5">
             <label className="flex items-center gap-2 text-[10px] font-black text-gray-400 dark:text-slate-500 uppercase ml-2 tracking-widest">
               <User size={12} /> Guest Name
@@ -61,12 +58,11 @@ export default function AddBookingModal({ propertyId }: { propertyId: string }) 
             <input 
               name="guest_name" 
               required 
-              className="w-full p-4 bg-gray-50 dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 outline-none focus:border-[#008489] dark:focus:border-[#008489] text-gray-900 dark:text-white transition-colors" 
+              className="w-full p-4 bg-gray-50 dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 outline-none focus:border-brand dark:focus:border-brand text-gray-900 dark:text-white transition-colors" 
               placeholder="e.g. Mary Wambui" 
             />
           </div>
 
-          {/* Payout Amount */}
           <div className="space-y-1.5">
             <label className="flex items-center gap-2 text-[10px] font-black text-gray-400 dark:text-slate-500 uppercase ml-2 tracking-widest">
               <Banknote size={12} /> Payout (KSh)
@@ -75,12 +71,12 @@ export default function AddBookingModal({ propertyId }: { propertyId: string }) 
               name="payout_amount" 
               type="number" 
               required 
-              className="w-full p-4 bg-gray-50 dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 outline-none focus:border-[#008489] font-bold text-[#008489] transition-colors" 
-              placeholder="0" 
+              className="w-full p-4 bg-gray-50 dark:bg-slate-800 rounded-2xl border border-gray-100 dark:border-slate-700 outline-none focus:border-brand font-bold text-brand transition-colors" 
+              placeholder="Ksh 0" 
             />
           </div>
 
-          {/* Dates Grid */}
+          {/* Dates */}
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-1.5">
               <label className="flex items-center gap-2 text-[10px] font-black text-gray-400 dark:text-slate-500 uppercase ml-2 tracking-widest">
@@ -117,7 +113,7 @@ export default function AddBookingModal({ propertyId }: { propertyId: string }) 
             </button>
             <button 
               disabled={loading} 
-              className="flex-[2] p-4 bg-[#008489] text-white rounded-2xl font-bold shadow-lg shadow-[#008489]/20 hover:bg-[#006d73] transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
+              className="flex-2 p-4 bg-brand text-white rounded-2xl font-bold shadow-lg shadow-brand/20 hover:bg-[#006d73] transition-all active:scale-95 disabled:opacity-50 cursor-pointer"
             >
               {loading ? 'Saving...' : 'Record Payout'}
             </button>

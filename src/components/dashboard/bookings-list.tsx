@@ -162,7 +162,7 @@ export default function BookingsList({ bookings = [], propertyId }: { bookings: 
   }, { current: 0, future: 0, past: 0 });
 
   return (
-    <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-gray-100 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col h-[600px] transition-colors duration-500">
+    <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-gray-100 dark:border-slate-800 shadow-sm overflow-hidden flex flex-col h-max[600px] transition-colors duration-500">
       <div className="px-6 py-4 border-b border-gray-100 dark:border-slate-800 flex justify-between items-center sticky top-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md z-10">
         <div className="flex items-center gap-4">
           <span className="text-[10px] font-black text-gray-400 dark:text-slate-500 uppercase tracking-[0.2em]">Guest History</span>
