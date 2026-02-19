@@ -273,7 +273,7 @@ export default function PropertyDetailView({ property, inventory, logs, bookings
               <h2 className="text-xl font-black text-[#484848] dark:text-white uppercase px-2">
                 Activity Log
               </h2>
-              <InventoryHistory logs={filteredData.filteredLogs} />
+              <InventoryHistory logs={filteredData.filteredLogs} propertyId={property.id}/>
               <FinancialReportButton
                 property={property}
                 inventory={inventory}
