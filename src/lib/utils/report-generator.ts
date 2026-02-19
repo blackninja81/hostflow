@@ -21,10 +21,11 @@ const getQuarterName = (quarterIndex: number) => {
 interface ReportData {
   propertyName: string;
   year: string;
-  period: string; // 'monthly', 'quarterly', 'yearly'
+  period: string; // 'monthly', 'quarterly', 'yearly', 'single-month'
   bookings: any[];
   logs: any[];
   inventory: any[];
+  selectedMonth?: number; // 0-11 for single-month reports
 }
 
 export const exportFinancialReportPDF = (data: ReportData) => {
@@ -68,7 +69,13 @@ export const exportFinancialReportPDF = (data: ReportData) => {
   doc.text(`Year: ${data.year}`, 14, yPosition);
   
   yPosition += 5;
-  doc.text(`Report Type: ${data.period.charAt(0).toUpperCase() + data.period.slice(1)}`, 14, yPosition);
+  let reportTypeText;
+  if (data.period === 'single-month' && data.selectedMonth !== undefined) {
+    reportTypeText = `Report Type: ${getMonthName(data.selectedMonth)} Report`;
+  } else {
+    reportTypeText = `Report Type: ${data.period.charAt(0).toUpperCase() + data.period.slice(1)}`;
+  }
+  doc.text(reportTypeText, 14, yPosition);
   
   yPosition += 5;
   doc.text(`Generated: ${generatedDate}`, 14, yPosition);
@@ -147,6 +154,37 @@ export const exportFinancialReportPDF = (data: ReportData) => {
         margin: margin.toFixed(1) + '%'
       });
     }
+  } else if (data.period === 'single-month') {
+    // Single month detailed report
+    const selectedMonth = data.selectedMonth ?? 0;
+    
+    const monthBookings = yearFilteredBookings.filter(b => {
+      const date = new Date(b.check_in);
+      return date.getMonth() === selectedMonth;
+    });
+
+    const monthLogs = yearFilteredLogs.filter(l => {
+      const date = new Date(l.transaction_date || l.created_at);
+      return date.getMonth() === selectedMonth;
+    });
+
+    const revenue = monthBookings.reduce((sum, b) => sum + (Number(b.payout_amount) || 0), 0);
+    const expenses = monthLogs.reduce((sum, l) => 
+      sum + (Number(l.price_at_time || 0) * Number(l.quantity || 1)), 0
+    );
+    const profit = revenue - expenses;
+    const margin = revenue > 0 ? ((profit / revenue) * 100) : 0;
+
+    breakdownData.push({
+      period: `${getMonthName(selectedMonth)} ${data.year}`,
+      bookings: monthBookings.length,
+      revenue,
+      expenses,
+      profit,
+      margin: margin.toFixed(1) + '%',
+      detailedBookings: monthBookings,
+      detailedLogs: monthLogs
+    });
   } else {
     // Yearly summary (single row) - using year-filtered data
     const revenue = yearFilteredBookings.reduce((sum, b) => sum + (Number(b.payout_amount) || 0), 0);
@@ -169,11 +207,24 @@ export const exportFinancialReportPDF = (data: ReportData) => {
   // ===================================
   // SUMMARY STATISTICS (using year-filtered data)
   // ===================================
-  const totalRevenue = breakdownData.reduce((sum, row) => sum + row.revenue, 0);
-  const totalExpenses = breakdownData.reduce((sum, row) => sum + row.expenses, 0);
-  const totalProfit = totalRevenue - totalExpenses;
-  const totalBookings = yearFilteredBookings.length;
-  const avgBookingValue = totalBookings > 0 ? totalRevenue / totalBookings : 0;
+  let totalRevenue, totalExpenses, totalProfit, totalBookings, avgBookingValue;
+  
+  if (data.period === 'single-month' && breakdownData[0]) {
+    // For single month, use only that month's data
+    const monthData = breakdownData[0];
+    totalRevenue = monthData.revenue;
+    totalExpenses = monthData.expenses;
+    totalProfit = monthData.profit;
+    totalBookings = monthData.bookings;
+    avgBookingValue = totalBookings > 0 ? totalRevenue / totalBookings : 0;
+  } else {
+    // For other reports, use cumulative data
+    totalRevenue = breakdownData.reduce((sum, row) => sum + row.revenue, 0);
+    totalExpenses = breakdownData.reduce((sum, row) => sum + row.expenses, 0);
+    totalProfit = totalRevenue - totalExpenses;
+    totalBookings = yearFilteredBookings.length;
+    avgBookingValue = totalBookings > 0 ? totalRevenue / totalBookings : 0;
+  }
 
   doc.setFontSize(11);
   doc.setTextColor(72, 72, 72);
@@ -212,7 +263,13 @@ export const exportFinancialReportPDF = (data: ReportData) => {
   doc.setFontSize(11);
   doc.setTextColor(72, 72, 72);
   doc.setFont('helvetica', 'bold');
-  doc.text(`${data.period.charAt(0).toUpperCase() + data.period.slice(1)} Breakdown`, 14, yPosition);
+  let breakdownTitle;
+  if (data.period === 'single-month' && data.selectedMonth !== undefined) {
+    breakdownTitle = `${getMonthName(data.selectedMonth)} ${data.year} Summary`;
+  } else {
+    breakdownTitle = `${data.period.charAt(0).toUpperCase() + data.period.slice(1)} Breakdown`;
+  }
+  doc.text(breakdownTitle, 14, yPosition);
   yPosition += 5;
 
   autoTable(doc, {
@@ -261,6 +318,108 @@ export const exportFinancialReportPDF = (data: ReportData) => {
   });
 
   yPosition = (doc as any).lastAutoTable.finalY + 15;
+
+  // ===================================
+  // DETAILED BREAKDOWN FOR SINGLE MONTH
+  // ===================================
+  if (data.period === 'single-month' && breakdownData[0]) {
+    const monthData = breakdownData[0];
+
+    // Bookings Detail Table
+    if (monthData.detailedBookings && monthData.detailedBookings.length > 0) {
+      doc.setFontSize(11);
+      doc.setTextColor(72, 72, 72);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Bookings Detail', 14, yPosition);
+      yPosition += 5;
+
+      const bookingsTableData = monthData.detailedBookings.map((b: any) => [
+        b.guest_name || 'N/A',
+        new Date(b.check_in).toLocaleDateString('en-KE', { day: 'numeric', month: 'short' }),
+        new Date(b.check_out).toLocaleDateString('en-KE', { day: 'numeric', month: 'short' }),
+        formatKSh(Number(b.payout_amount) || 0)
+      ]);
+
+      autoTable(doc, {
+        startY: yPosition,
+        head: [['Guest Name', 'Check In', 'Check Out', 'Payout']],
+        body: bookingsTableData,
+        headStyles: {
+          fillColor: [34, 139, 34], // Green
+          fontSize: 9,
+          fontStyle: 'bold'
+        },
+        styles: {
+          fontSize: 9,
+          cellPadding: 3
+        },
+        columnStyles: {
+          0: { cellWidth: 70 },
+          1: { halign: 'center', cellWidth: 30 },
+          2: { halign: 'center', cellWidth: 30 },
+          3: { halign: 'right', cellWidth: 35, fontStyle: 'bold', textColor: [34, 139, 34] }
+        },
+        alternateRowStyles: {
+          fillColor: [247, 247, 247]
+        }
+      });
+
+      yPosition = (doc as any).lastAutoTable.finalY + 15;
+    }
+
+    // Expenses Detail Table
+    if (monthData.detailedLogs && monthData.detailedLogs.length > 0 && yPosition < 240) {
+      doc.setFontSize(11);
+      doc.setTextColor(72, 72, 72);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Expenses Detail', 14, yPosition);
+      yPosition += 5;
+
+      const expensesTableData = monthData.detailedLogs
+        .map((l: any) => ({
+          date: new Date(l.transaction_date || l.created_at),
+          name: l.item_name || 'N/A',
+          quantity: Number(l.quantity) || 1,
+          price: Number(l.price_at_time) || 0,
+          total: (Number(l.price_at_time) || 0) * (Number(l.quantity) || 1)
+        }))
+        .sort((a: any, b: any) => a.date.getTime() - b.date.getTime())
+        .map((l: any) => [
+          l.date.toLocaleDateString('en-KE', { day: 'numeric', month: 'short' }),
+          l.name,
+          l.quantity.toString(),
+          formatKSh(l.price),
+          formatKSh(l.total)
+        ]);
+
+      autoTable(doc, {
+        startY: yPosition,
+        head: [['Date', 'Item', 'Qty', 'Unit Price', 'Total']],
+        body: expensesTableData,
+        headStyles: {
+          fillColor: [255, 90, 95], // #FF5A5F
+          fontSize: 9,
+          fontStyle: 'bold'
+        },
+        styles: {
+          fontSize: 9,
+          cellPadding: 3
+        },
+        columnStyles: {
+          0: { cellWidth: 25 },
+          1: { cellWidth: 60 },
+          2: { halign: 'center', cellWidth: 15 },
+          3: { halign: 'right', cellWidth: 30 },
+          4: { halign: 'right', cellWidth: 35, fontStyle: 'bold', textColor: [255, 90, 95] }
+        },
+        alternateRowStyles: {
+          fillColor: [247, 247, 247]
+        }
+      });
+
+      yPosition = (doc as any).lastAutoTable.finalY + 15;
+    }
+  }
 
   // ===================================
   // TOP EXPENSE CATEGORIES (if space) - using year-filtered data
@@ -334,7 +493,13 @@ export const exportFinancialReportPDF = (data: ReportData) => {
   // ===================================
   // SAVE FILE
   // ===================================
-  const filename = `HostFlow_${data.propertyName.replace(/\s+/g, '_')}_${data.period}_${data.year}.pdf`;
+  let filename;
+  if (data.period === 'single-month' && data.selectedMonth !== undefined) {
+    const monthName = getMonthName(data.selectedMonth);
+    filename = `HostFlow_${data.propertyName.replace(/\s+/g, '_')}_${monthName}_${data.year}.pdf`;
+  } else {
+    filename = `HostFlow_${data.propertyName.replace(/\s+/g, '_')}_${data.period}_${data.year}.pdf`;
+  }
   doc.save(filename);
 };
 
