@@ -9,7 +9,6 @@ export default function DashboardLayout({
 }) {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-[#0F172A] transition-colors duration-500">
-      {/* GLOBAL DASHBOARD NAVBAR */}
       <nav className="border-b border-gray-100 dark:border-slate-800 bg-white/80 dark:bg-[#0F172A]/80 backdrop-blur-xl px-8 py-4 sticky top-0 z-50">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <div className="flex items-center gap-4">
@@ -28,8 +27,6 @@ export default function DashboardLayout({
           </div>
         </div>
       </nav>
-
-      {/* PAGE CONTENT */}
       {children}
     </div>
   );

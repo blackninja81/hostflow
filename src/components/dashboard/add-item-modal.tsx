@@ -98,7 +98,7 @@ export default function AddItemModal({ propertyId }: { propertyId: string }) {
           {/* Cost per Unit */}
           <div className="space-y-1.5">
             <label className="flex items-center gap-2 text-[10px] font-black text-gray-400 dark:text-slate-500 uppercase ml-2 tracking-widest">
-              <DollarSign size={12} /> Cost per Unit ($)
+              Cost per Unit (Ksh)
             </label>
             <input 
               name="cost" 

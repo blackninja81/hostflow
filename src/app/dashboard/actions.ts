@@ -185,11 +185,11 @@ export async function adjustStock(
   revalidatePath(`/dashboard/properties/${propertyId}`);
 }
 
-export async function updateItem(itemId: string, propertyId: string, name: string, cost: number, minStock: number) {
+export async function updateItem(itemId: string, propertyId: string, name: string, cost: number, minStock: number, is_permanent:boolean) {
   const supabase = await createClient();
   await supabase
     .from("inventory_items")
-    .update({ name, cost_per_unit: cost, min_stock: minStock })
+    .update({ name, cost_per_unit: cost, min_stock: minStock, is_permanent:is_permanent })
     .eq("id", itemId);
 
   revalidatePath(`/dashboard/properties/${propertyId}`);

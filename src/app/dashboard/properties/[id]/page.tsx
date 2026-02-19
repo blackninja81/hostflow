@@ -2,11 +2,6 @@ import { createClient } from "../../../../lib/supabase/server";
 import { notFound, redirect } from "next/navigation";
 import PropertyDetailView from "./PropertyDetailView";
 
-/**
- * PropertyDetailPage
- * * Server component that pre-fetches the full dataset for a specific asset.
- * Data is fetched in parallel to minimize waterfall latency.
- */
 export default async function PropertyDetailPage(props: { params: Promise<{ id: string }> }) {
   const params = await props.params;
   const id = params.id;
